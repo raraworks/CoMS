@@ -10,12 +10,6 @@
         {{Form::text('title', null, array('class'=>'form-control')) }}
         {{Form::label('address', 'Adrese: ')}}
         {{Form::textarea('address', null, array('class'=>'form-control')) }}
-        {{Form::label('contact_name', 'Kontaktpersona: ')}}
-        {{Form::text('contact_name', null, array('class'=>'form-control')) }}
-        {{Form::label('phone', 'Telefons: ')}}
-        {{Form::text('phone', null, array('class'=>'form-control')) }}
-        {{Form::label('email', 'E-pasta adrese: ')}}
-        {{Form::text('email', null, array('class'=>'form-control')) }}
         {{Form::submit('Izveidot', array('class' => 'btn btn-success'))}}
       {!! Form::close() !!}
     </div>

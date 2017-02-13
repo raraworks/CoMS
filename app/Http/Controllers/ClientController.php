@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Client;
+use App\Contact;
 use Session;
 
 class ClientController extends Controller
@@ -15,7 +16,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
+        $clients = Client::orderBy('title', 'asc')->paginate(10);
         return view("clients.index")->with('clients', $clients);
     }
 
@@ -48,9 +49,9 @@ class ClientController extends Controller
           //bind data
         $client->title = $request->title;
         $client->address = $request->address;
-        $client->contact_name = $request->contact_name;
-        $client->phone = $request->phone;
-        $client->email = $request->email;
+        // $client->contact_name = $request->contact_name;
+        // $client->phone = $request->phone;
+        // $client->email = $request->email;
           //save to DB
         $client->save();
         //flash message in session flash('key', 'value')
@@ -70,10 +71,13 @@ class ClientController extends Controller
     {
       //find id in database
       //ja atrod pieskir $client visu array (row) no DB
+
       $client = Client::find($id);
+      //find all related contacts
+      $contacts = Client::find($id)->contacts;
       //pass $client saturu no DB, uz skatu (izmanto with metodi)
       //with(nosaukums skatā, mainīgā nosaukums kurs satur info)
-        return view('clients.show')->with('client', $client);
+        return view('clients.show')->with('client', $client)->with('contacts', $contacts);
     }
 
     /**
@@ -107,9 +111,9 @@ class ClientController extends Controller
       //updeito formu
       $client->title = $request->title;
       $client->address = $request->address;
-      $client->contact_name = $request->contact_name;
-      $client->phone = $request->phone;
-      $client->email = $request->email;
+      // $client->contact_name = $request->contact_name;
+      // $client->phone = $request->phone;
+      // $client->email = $request->email;
       //commit save to DB
       $client->save();
       //flash message in session flash('key', 'value')
@@ -126,6 +130,9 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $client = Client::find($id);
+        $client->delete();
+        Session::flash('success', 'Klients veiksmīgi izdzēsts!');
+        return redirect()->route('clients.index');
     }
 }

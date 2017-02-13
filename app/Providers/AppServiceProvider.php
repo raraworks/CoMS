@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Client;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+      Client::deleting(function ($client) {
+        if($client->contacts()->delete()){
+          $client->actions()->delete();
+          return true;
+        }
+        return false;
+      });
     }
 
     /**

@@ -16,6 +16,8 @@
     <ul class="nav navbar-nav">
       <li class="{{Request::is('/') ? "active" : ""}}"><a href="/">Home</a></li>
       <li class="{{Request::is('clients') ? "active" : ""}}"><a href="/clients">Klienti</a></li>
+      <li class="{{Request::is('actions') ? "active" : ""}}"><a href="/actions">Darbības</a></li>
+      <li class="{{Request::is('contacts') ? "active" : ""}}"><a href="/contacts">Kontaktpersonas</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#">Link</a></li>

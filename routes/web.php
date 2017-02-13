@@ -13,3 +13,5 @@
 
 Route::get('/', 'PagesController@getIndex');
 Route::resource('clients', 'ClientController');
+Route::resource('actions', "ActionController");
+Route::resource('contacts', "ContactController");
