@@ -33,7 +33,7 @@
               </td>
               <td>{{ $action->client->title }}</td>
               <td>{{ $action->title }}</td>
-              <td>{{ $action->content }}</td>
+              <td>{{ Str::limit($action->content, 5, '...') }}</td>
               <td>{!! Html::linkRoute('actions.show', 'Skatīt', array($action->id), array('class'=>'btn btn-primary')) !!}</td>
               <td>{!! Html::linkRoute('actions.edit', 'Labot', array($action->id), array('class'=>'btn btn-success')) !!}</td>
               <td>{!! Form::open(['route' => ['actions.destroy', $action->id], 'method'=>'DELETE'])!!}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Client;
 use App\Contact;
+use App\Section;
 use Session;
 
 class ClientController extends Controller
@@ -75,9 +76,10 @@ class ClientController extends Controller
       $client = Client::find($id);
       //find all related contacts
       $contacts = Client::find($id)->contacts;
+      $sections = Client::find($id)->sections;
       //pass $client saturu no DB, uz skatu (izmanto with metodi)
       //with(nosaukums skatā, mainīgā nosaukums kurs satur info)
-        return view('clients.show')->with('client', $client)->with('contacts', $contacts);
+        return view('clients.show')->with('client', $client)->with('contacts', $contacts)->with('sections', $sections);
     }
 
     /**

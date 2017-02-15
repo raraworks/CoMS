@@ -88,7 +88,9 @@ class ActionController extends Controller
     {
       $action = Action::find($id);
       $clients = Client::all();
-      return view('actions.edit')->with('action', $action)->with('clients', $clients);
+      $due_date = date('d.m.Y', strtotime($action->due_date));
+      $due_time = date('H:i', strtotime($action->due_time));
+      return view('actions.edit')->with('action', $action)->with('clients', $clients)->with('due_date', $due_date)->with('due_time', $due_time);
     }
 
     /**

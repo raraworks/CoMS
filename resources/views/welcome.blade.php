@@ -24,17 +24,13 @@
                 </td>
                 <td>{{ $action->client->title }}</td>
                 <td>{{ $action->title }}</td>
-                <td>{{ $action->content }}</td>
+                <td>{{ Str::limit($action->content, 20, '...') }}</td>
                 <td>{!! Html::linkRoute('actions.show', 'Skatīt', array($action->id), array('class'=>'btn btn-primary')) !!}</td>
               </tr>
             {{-- @endif --}}
           @endforeach
         </tbody>
       </table>
-      {{-- pagination --}}
-      <div class="text-center">
-        {!! $actions->links() !!}
-      </div>
     </div>
     <div class="col-md-6">
       <h1>Tuvākajā laikā</h1>
@@ -59,7 +55,7 @@
                 </td>
                 <td>{{ $actionFuture->client->title }}</td>
                 <td>{{ $actionFuture->title }}</td>
-                <td>{{ $actionFuture->content }}</td>
+                <td>{{ Str::limit($actionFuture->content, 20, '...') }}</td>
                 <td>{!! Html::linkRoute('actions.show', 'Skatīt', array($actionFuture->id), array('class'=>'btn btn-primary')) !!}</td>
               </tr>
             @endif

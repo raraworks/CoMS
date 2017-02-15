@@ -20,8 +20,11 @@
   <div class="row">
     <div class="col-sm-2 col-sm-offset-2">
     {{--  divos veidos var maršrutēt --}}
-      <a href="/clients/{{$action->id}}/edit" class="btn btn-primary">Labot</a>
-      {!! Html::linkRoute('actions.destroy', 'Dzēst', array($action->id), array('class'=>'btn btn-danger')) !!}
+      {{-- <a href="/clients/{{$action->id}}/edit" class="btn btn-primary">Labot</a> --}}
+      {!! Html::linkRoute('actions.edit', 'Labot', array($action->id), array('class'=>'btn btn-primary')) !!}
+      {!! Form::open(['route' => ['actions.destroy', $action->id], 'method'=>'DELETE'])!!}
+      {!!Form::submit('Dzēst', ['class'=>'btn btn-danger'])!!}
+      {!!Form::close()!!}
       {!! Html::linkRoute('actions.index', ' Atpakaļ <<', array(), array('class'=>'link')) !!}
     </div>
   </div>

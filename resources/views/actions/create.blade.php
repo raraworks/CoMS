@@ -17,8 +17,8 @@
         {{Form::label('content', 'Apraksts: ')}}
         {{Form::textarea('content', null, array('class'=>'form-control')) }}
         {{Form::label('due_date', 'Atgādinājums: ')}}
-        {{Form::date('due_date', \Carbon\Carbon::now()->format('j.n.Y.'), array('class'=>'form-control')) }}
-        {{Form::time('due_time', \Carbon\Carbon::now()->format('G:i'), array('class'=>'form-control')) }}
+        {{Form::text('due_date', 'DD.MM.GGGG', array('class'=>'form-control', 'id'=>'datetimepicker')) }}
+        {{Form::text('due_time', 'SS:MM', array('class'=>'form-control', 'id'=>'datetimepicker1')) }}
         {{Form::submit('Izveidot', array('class' => 'btn btn-success'))}}
       {!! Form::close() !!}
     </div>
@@ -27,7 +27,11 @@
 @section('stylesheets')
   <link rel="stylesheet" href="/css/clients.css">
   <link rel="stylesheet" href="/css/parsley.css">
+  <link rel="stylesheet" href="/css/jquery.datetimepicker.min.css">
 @endsection
 @section('scripts')
   <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.6.2/parsley.min.js" integrity="sha256-QKOftzbqahZaXS2amOh27JacZ6TbmT4TmGxNo4Jue4Y=" crossorigin="anonymous"></script>
+  <script src="/js/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="/js/main.js">
+  </script>
 @endsection

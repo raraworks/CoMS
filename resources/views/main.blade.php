@@ -10,7 +10,6 @@
   @include('partials._footer')
 </div>
 @include('partials._javascript')
-<!-- pievieno scripts kurus vajag kurai lapai-->
-  @yield('scripts')
+@yield('scripts')
 </body>
 </html>

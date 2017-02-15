@@ -14,12 +14,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+      // if delete a client, delete all contacts and actions that are associated with it
       Client::deleting(function ($client) {
         if($client->contacts()->delete()){
           $client->actions()->delete();
+          $client->sections()->delete();
           return true;
         }
-        return false;
+        elseif ($client->actions()->delete()) {
+          $client->contacts()->delete();
+          $client->sections()->delete();
+          return true;
+        }
+        return true;
       });
     }
 
