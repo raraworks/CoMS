@@ -18,6 +18,6 @@ Route::resource('contacts', "ContactController");
 Route::get('clients/{client}/section/create', 'SectionController@create')->name('sections.create');
 Route::post('clients/{client}', 'SectionController@store')->name('sections.store');
 Route::get('clients/{client}/section/{id}/edit', 'SectionController@edit')->name('sections.edit');
-Route::put('clients/{client}', 'SectionController@update')->name('sections.update');
+Route::put('clients/{client}/section', 'SectionController@update')->name('sections.update');
 Route::delete('clients/{client}/section/{id}', 'SectionController@destroy')->name('sections.destroy');
 // Route::get('/login', ['uses' => 'Auth/LoginController'])->middleware->('web')

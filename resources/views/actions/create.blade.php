@@ -32,6 +32,6 @@
 @section('scripts')
   <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.6.2/parsley.min.js" integrity="sha256-QKOftzbqahZaXS2amOh27JacZ6TbmT4TmGxNo4Jue4Y=" crossorigin="anonymous"></script>
   <script src="/js/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="/js/main.js">
+  <script type="text/javascript" src="/js/deitpicker.js">
   </script>
 @endsection

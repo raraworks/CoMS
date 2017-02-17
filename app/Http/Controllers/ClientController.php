@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Client;
 use App\Contact;
 use App\Section;
+use App\Action;
 use Session;
 
 class ClientController extends Controller
@@ -77,9 +78,10 @@ class ClientController extends Controller
       //find all related contacts
       $contacts = Client::find($id)->contacts;
       $sections = Client::find($id)->sections;
+      $actions = Action::where('client_id', '=', $id)->orderBy('due_date', 'desc')->paginate(10, ['*']);
       //pass $client saturu no DB, uz skatu (izmanto with metodi)
       //with(nosaukums skatā, mainīgā nosaukums kurs satur info)
-        return view('clients.show')->with('client', $client)->with('contacts', $contacts)->with('sections', $sections);
+        return view('clients.show')->with('client', $client)->with('contacts', $contacts)->with('sections', $sections)->with('actions', $actions);
     }
 
     /**

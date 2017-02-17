@@ -5,7 +5,7 @@
     <div class="col-md-8 col-md-offset-2">
       <h1>Izlabot sadaļu</h1>
       <hr>
-        <form id="editSection" action="{{ route('clients.show', ['client' => $clientOne->id, 'id' => $section->id]) }}" method="POST">
+        <form id="editSection" action="{{ route('sections.update', ['client' => $clientOne->id, 'id' => $section->id]) }}" method="POST">
           <label for="section_name"> Sadaļas nosaukums: </label>
           <input type="text" name="section_name" class="form-control" value="{{$section->section_name}}">
           <label for="content">Piezīme:</label>
