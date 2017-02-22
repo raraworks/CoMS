@@ -1,5 +1,7 @@
 @extends('main')
-@section('title', "| Labot darbību")
+@section('title')
+Labot darbību: {{$action->title}}
+@endsection
 @section('content')
   <div class="row">
     <div class="col-md-8 col-md-offset-2">

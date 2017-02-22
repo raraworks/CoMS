@@ -1,11 +1,13 @@
 @extends('main')
-@section('title', '| Klienti ')
+@section('title')
+ Meklēšana: {{$keyword}}
+@endsection
 @section('content')
   <div class="row">
     <div class="row">
       <div class="col-md-10">
         <h1 class="display-1">
-          Klienti
+          Meklēšanas rezultāti vaicājumam: {{$keyword}}
         </h1>
       </div>
       <div class="col-md-2 text-right block-div">
@@ -29,22 +31,18 @@
           </tr>
         </thead>
         <tbody>
-          @foreach($clients as $client)
+          @foreach($results as $result)
             <tr class="indextabula">
-              <td>{{ $client->title }}</td>
-              <td>{{ $client->address }}</td>
-              <td>{!! Html::linkRoute('clients.show', 'Skatīt', array($client->id), array('class'=>'btn btn-primary')) !!}</td>
-              <td>{!! Html::linkRoute('clients.edit', 'Labot', array($client->id), array('class'=>'btn btn-success')) !!}</td>
-              <td>{!! Form::open(['route' => ['clients.destroy', $client->id], 'method'=>'DELETE'])!!}
+              <td>{{ $result->title }}</td>
+              <td>{{ $result->address }}</td>
+              <td>{!! Html::linkRoute('clients.show', 'Skatīt', array($result->id), array('class'=>'btn btn-primary')) !!}</td>
+              <td>{!! Html::linkRoute('clients.edit', 'Labot', array($result->id), array('class'=>'btn btn-success')) !!}</td>
+              <td>{!! Form::open(['route' => ['clients.destroy', $result->id], 'method'=>'DELETE'])!!}
               {!!Form::submit('Dzēst', ['class'=>'btn btn-danger'])!!}
               {!!Form::close()!!}</td>
             </tr>
           @endforeach
         </tbody>
       </table>
-      {{-- pagination --}}
-      <div class="text-center">
-        {!! $clients->links() !!}
-      </div>
   </div>
 @endsection

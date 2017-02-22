@@ -21,3 +21,7 @@ Route::get('clients/{client}/section/{id}/edit', 'SectionController@edit')->name
 Route::put('clients/{client}/section', 'SectionController@update')->name('sections.update');
 Route::delete('clients/{client}/section/{id}', 'SectionController@destroy')->name('sections.destroy');
 // Route::get('/login', ['uses' => 'Auth/LoginController'])->middleware->('web')
+Route::get('/search', 'ClientController@search')->name('clients.search');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

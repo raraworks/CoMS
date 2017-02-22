@@ -8,7 +8,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">CoMS</a>
+    <a class="navbar-brand" href="/">CoMS</a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
@@ -20,7 +20,13 @@
       <li class="{{Request::is('contacts') ? "active" : ""}}"><a href="/contacts">Kontaktpersonas</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#">Link</a></li>
+      @if (Auth::user())
+      <li>Lietotājs: {{Auth::user()->name}}</li>
+      <li><form action="{{ url('/logout') }}" method="POST" style="display: inline-block;">
+          {{ csrf_field() }}
+          <input type="submit" name="submit" value="Iziet">
+      </form></li>
+      @endif
     </ul>
   </div><!-- /.navbar-collapse -->
 </div><!-- /.container-fluid -->

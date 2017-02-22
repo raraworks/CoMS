@@ -9,6 +9,11 @@ use Session;
 
 class SectionController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
+  
   public function create($client)
   {
     $clientOne = Client::find($client);

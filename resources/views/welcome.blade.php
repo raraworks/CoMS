@@ -67,7 +67,43 @@
         {!! $actionsFuture->links() !!}
       </div>
     </div>
+    {{-- Aizgājušās darbības --}}
+
+    <div class="col-md-6">
+      <h1>Nesenās darbības</h1>
+      <hr>
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Datums</th>
+            <th>Laiks</th>
+            <th>Klients</th>
+            <th>Darbība</th>
+            <th>Apraksts</th>
+            <th>Darbības</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($actionsPast as $actionPast)
+              <tr class="indextabula">
+                <td>{{ date('j.m.Y.', strtotime($actionPast->due_date)) }}</td>
+                <td>{{ date('G:i', strtotime($actionPast->due_time)) }}
+                </td>
+                <td>{{ $actionPast->client->title }}</td>
+                <td>{{ $actionPast->title }}</td>
+                <td>{{ Str::limit($actionPast->content, 20, '...') }}</td>
+                <td>{!! Html::linkRoute('actions.show', 'Skatīt', array($actionPast->id), array('class'=>'btn btn-primary')) !!}</td>
+              </tr>
+          @endforeach
+        </tbody>
+      </table>
+      {{-- pagination --}}
+      <div class="text-center">
+        {!! $actionsPast->links() !!}
+      </div>
+    </div>
+
   </div>
 
 @endsection
-@section('title', '| Welcome!')
+@section('title', 'Dashboard')

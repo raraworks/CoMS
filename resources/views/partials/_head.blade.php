@@ -5,5 +5,5 @@
     <!-- pievieno atseviskus css, kurai lapai vajag-->
     <link rel="stylesheet" href="/css/main.css">
     @yield('stylesheets')
-    <title>CoMS @yield('title')</title> <!-- CHANGE FOR EACH PAGE -->
+    <title>CoMS | @yield('title')</title> <!-- CHANGE FOR EACH PAGE -->
 </head>

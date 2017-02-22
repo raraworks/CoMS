@@ -3,7 +3,7 @@
 @section('content')
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <h1>Izveidot jaunu sadaļu kontaktam {{ $clientOne->title }}</h1>
+      <h1>Izveidot jaunu sadaļu klientam {{ $clientOne->title }}</h1>
       <hr>
         <form id="createSection" action="{{ route('clients.show', ['client' => $clientOne->id]) }}" method="post">
           <label for="section_name"> Sadaļas nosaukums: </label>

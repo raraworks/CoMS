@@ -1,5 +1,7 @@
 @extends('main')
-@section('title', '| Apskatīt klientu: ')
+@section('title')
+Apskatīt klientu: {{$client->title}}
+@endsection
 @section('content')
   @include('clients.show.topbar')
   @include('clients.show.middlebar')

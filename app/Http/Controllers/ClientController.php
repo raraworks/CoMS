@@ -11,6 +11,10 @@ use Session;
 
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -138,5 +142,11 @@ class ClientController extends Controller
         $client->delete();
         Session::flash('success', 'Klients veiksmīgi izdzēsts!');
         return redirect()->route('clients.index');
+    }
+    public function search(Request $request)
+    {
+      $keyword = $request->input('term');
+      $results = Client::where('title', 'LIKE', '%'.$keyword.'%')->get();
+      return view('clients.search')->with('results', $results)->with('keyword', $keyword);
     }
 }

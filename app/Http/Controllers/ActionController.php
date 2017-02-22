@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Action;
 use App\Client;
 use Session;
 
 class ActionController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +21,7 @@ class ActionController extends Controller
      */
     public function index()
     {
-      $actions = Action::orderBy('due_date', 'asc')->orderBy('due_time', 'asc')->paginate(10);
+      $actions = Action::orderBy('due_date', 'asc')->orderBy('due_time', 'asc')->paginate(8);
       return view("actions.index")->with('actions', $actions);
     }
 
@@ -47,6 +52,7 @@ class ActionController extends Controller
       ));
       //store in database
         //create new model instance
+      $user = Auth::id();
       $action = new Action;
         //bind data
       $action->client_id = $request->client_id;
@@ -54,6 +60,7 @@ class ActionController extends Controller
       $action->content = $request->content;
       $action->due_date = date('Y-m-d', strtotime($request->due_date));
       $action->due_time = date('H:i:s', strtotime($request->due_time));
+      $action->user_id = $user;
         //save to DB
       $action->save();
       //flash message in session flash('key', 'value')

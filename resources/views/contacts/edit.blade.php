@@ -1,5 +1,7 @@
 @extends('main')
-@section('title', "| Labot kontaktu")
+@section('title')
+Labot kontaktu: {{$contact->contact_name}}
+@endsection
 @section('content')
   <div class="row">
     <div class="col-md-8 col-md-offset-2">

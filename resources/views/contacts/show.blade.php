@@ -1,5 +1,7 @@
 @extends('main')
-@section('title', '| Apskatīt kontaktu: ')
+@section('title')
+Apskatīt kontaktu: {{$contact->contact_name}}
+@endsection
 @section('content')
   <div class="row">
     <div class="col-sm-4 col-sm-offset-2">

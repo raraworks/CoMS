@@ -3,7 +3,7 @@
 @section('content')
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <h1>Izlabot sadaļu</h1>
+      <h1>Izlabot sadaļu klientam {{ $clientOne->title }}</h1>
       <hr>
         <form id="editSection" action="{{ route('sections.update', ['client' => $clientOne->id, 'id' => $section->id]) }}" method="POST">
           <label for="section_name"> Sadaļas nosaukums: </label>
