@@ -20,7 +20,7 @@
             {{-- @if (date('Y-m-d') == date('Y-m-d', strtotime($action->due_date))) --}}
               <tr class="indextabula">
                 <td>{{ date('j.m.Y.', strtotime($action->due_date)) }}</td>
-                <td>{{ date('G:i', strtotime($action->due_time)) }}
+                <td class="taim">{{ date('G:i', strtotime($action->due_time)) }}
                 </td>
                 <td>{{ $action->client->title }}</td>
                 <td>{{ $action->title }}</td>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Contact;
 use App\Client;
 use Session;
@@ -12,6 +13,7 @@ class ContactController extends Controller
     public function __construct()
     {
       $this->middleware('auth');
+      $this->middleware('owner', ['only' => ['edit', 'update', 'destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -52,12 +54,14 @@ class ContactController extends Controller
       //store in database
         //create new model instance
       $contact = new Contact;
+      $user = Auth::id();
         //bind data
       $contact->contact_name = $request->contact_name;
       $contact->phone = $request->phone;
       $contact->email = $request->email;
       // TODO: Jāpārveido form text laukā ievadītais nosaukums ar id un jāstoro ID
       $contact->client_id = $request->client_id;
+      $contact->user_id = $user;
         //save to DB
       $contact->save();
       //flash message in session flash('key', 'value')

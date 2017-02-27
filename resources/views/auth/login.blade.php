@@ -1,11 +1,33 @@
-@extends('main')
-
-@section('content')
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,700&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <title>CoMS</title>
+</head>
+<body>
+  @if (Session::has('success'))
+    <div class="alert alert-success " role="alert">
+      <strong>{{ Session::get('success') }}</strong>
+    </div>
+  @endif
+  @if (count($errors) > 0)
+    <div class="alert alert-danger" role="alert">
+      <strong>@foreach($errors->all() as $error)
+        <span>
+          {{ $error }}
+        </span>
+      @endforeach</strong>
+    </div>
+  @endif
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Ieiet sistēmā</div>
+            <div class="panel panel-default" id="loginpanel">
+                <div class="panel-heading text-center"><img src="http://www.ika.lv/wp-content/uploads/2016/05/IKA_logo.png" alt="Industriālo Krāsu Apgāds" /></div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
@@ -38,9 +60,9 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                        <div class="form-group text-center">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn ieiet">
                                     Ieiet
                                 </button>
                             </div>
@@ -51,4 +73,11 @@
         </div>
     </div>
 </div>
-@endsection
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

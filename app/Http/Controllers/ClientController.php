@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Client;
 use App\Contact;
 use App\Section;
@@ -14,6 +15,7 @@ class ClientController extends Controller
     public function __construct()
     {
       $this->middleware('auth');
+      $this->middleware('owner', ['only' => ['edit', 'update', 'destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -52,9 +54,11 @@ class ClientController extends Controller
         //store in database
           //create new model instance
         $client = new Client;
+        $user = Auth::id();
           //bind data
         $client->title = $request->title;
         $client->address = $request->address;
+        $client->user_id = $user;
         // $client->contact_name = $request->contact_name;
         // $client->phone = $request->phone;
         // $client->email = $request->email;

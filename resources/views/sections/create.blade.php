@@ -2,9 +2,8 @@
 @section('title', "| Izveidot jaunu sadaļu")
 @section('content')
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-sm-6 col-md-offset-3">
       <h1>Izveidot jaunu sadaļu klientam {{ $clientOne->title }}</h1>
-      <hr>
         <form id="createSection" action="{{ route('clients.show', ['client' => $clientOne->id]) }}" method="post">
           <label for="section_name"> Sadaļas nosaukums: </label>
           <input type="text" name="section_name" class="form-control">

@@ -4,9 +4,8 @@ Labot klientu: {{$client->title}}
 @endsection
 @section('content')
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-sm-6 col-md-offset-3">
       <h1>Labot klientu</h1>
-      <hr>
       {!! Form::model($client, ['route' => ['clients.update', $client->id], 'method' => 'PUT']) !!}
         {{Form::label('title', 'Nosaukums: ')}}
         {{Form::text('title', null, array('class'=>'form-control')) }}

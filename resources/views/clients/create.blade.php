@@ -2,9 +2,8 @@
 @section('title', "| Izveidot jaunu klientu")
 @section('content')
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-sm-6 col-md-offset-3">
       <h1>Izveidot jaunu klientu</h1>
-      <hr>
       {!! Form::open(['route' => 'clients.store', 'id'=>'createClient']) !!}
         {{Form::label('title', 'Nosaukums: ')}}
         {{Form::text('title', null, array('class'=>'form-control')) }}

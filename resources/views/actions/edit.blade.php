@@ -4,9 +4,8 @@ Labot darbību: {{$action->title}}
 @endsection
 @section('content')
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-sm-6 col-md-offset-3">
       <h1>Labot darbību</h1>
-      <hr>
       {!! Form::model($action, ['route' => ['actions.update', $action->id], 'method' => 'PUT']) !!}
       {{Form::label('client_id', 'Klients: ')}}
       <select class="form-control" name="client_id">

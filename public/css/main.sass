@@ -1,3 +1,106 @@
+html
+  font-family: 'Muli', sans-serif
+body
+  font-family: inherit
 .btn
   border-radius: 0
-  text-transform: uppercase
+.navbar
+  margin-bottom: 0
+.panel
+  border-radius: 0
+.form-control
+  border-radius: 0
+.alert
+  border-radius: 0
+
+// NAV BAR
+
+.navbar-default
+  border: 0
+  border-bottom: 1px solid grey
+  border-radius: 0
+  background: #43C6AC; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #43C6AC , #F8FFAE); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #43C6AC , #F8FFAE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+.navbar-default .navbar-nav>.active>a
+  background-color: transparent
+  font-weight: bold
+  text-decoration: underline
+  &:hover
+    background-color: transparent
+    font-weight: bold
+.user-area
+  padding: 15px
+.ikona
+  font-size: 14px
+  color: black
+  display: inline-block
+  padding: 0
+  border: 0
+  background-color: transparent
+
+// TOP ROW
+#titleArea
+  padding-top: 60px
+  margin-bottom: 30px
+
+#topRow
+  border-bottom: 1px solid grey
+
+.ash1
+  margin-top: 25px
+  margin-bottom: 10px
+#searchIcon
+  background: #5bcdac
+  border-color: #5bcdac
+#searchBox
+  display: inline-block
+#addBox
+  color: black
+  background: #BCF4E3
+  border-color: #BCF4E3
+
+// CONTENT ROW
+.table-striped>tbody>tr:nth-of-type(odd)
+  background-color: rgba(248,255,174,0.5)
+.table>tbody>tr>td
+  vertical-align: middle
+.deleteButton
+  display: inline-block
+.showButton
+  background: #1DA078
+  border-color: #1DA078
+  &:hover
+    background: darken(#1DA078, 20%)
+    border-color: #39B590
+.editButton
+  background: #39B590
+  border-color: #39B590
+  &:hover
+    background: darken(#39B590, 20%)
+    border-color: #39B590
+th
+  text-align: center
+
+//PAGINATION
+.pagination
+  border-radius: 0
+  .active span
+    background-color: #5bcdac
+    border-color: #5bcdac
+  li a
+    color: #5bcdac
+  li:first-child span
+    border-radius: 0
+  li:first-child a
+    border-radius: 0
+  li:last-child span
+    border-radius: 0
+  li:last-child a
+    border-radius: 0
+// background: -moz-linear-gradient(left, rgba(248,255,174,0.5) 0%, rgba(91,205,172,0.5) 100%)
+// background: -webkit-gradient(left top, right top, color-stop(0%, rgba(248,255,174,0.5)), color-stop(100%, rgba(91,205,172,0.5)))
+// background: -webkit-linear-gradient(left, rgba(248,255,174,0.5) 0%, rgba(91,205,172,0.5) 100%)
+// background: -o-linear-gradient(left, rgba(248,255,174,0.5) 0%, rgba(91,205,172,0.5) 100%)
+// background: -ms-linear-gradient(left, rgba(248,255,174,0.5) 0%, rgba(91,205,172,0.5) 100%)
+// background: linear-gradient(to right, rgba(248,255,174,0.5) 0%, rgba(91,205,172,0.5) 100%)

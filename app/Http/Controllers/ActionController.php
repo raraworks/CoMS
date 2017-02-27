@@ -13,6 +13,7 @@ class ActionController extends Controller
     public function __construct()
     {
       $this->middleware('auth');
+      $this->middleware('owner', ['only' => ['edit', 'update', 'destroy']]);
     }
     /**
      * Display a listing of the resource.

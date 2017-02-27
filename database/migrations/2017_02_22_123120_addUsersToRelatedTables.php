@@ -13,9 +13,12 @@ class AddUsersToRelatedTables extends Migration
      */
     public function up()
     {
-      Schema::table('actions', function (Blueprint $table) {
-          $table->integer('user_id')->after('client_id')->nullable();
-      });
+      $tables = ['actions', 'clients', 'contacts', 'sections'];
+      foreach ($tables as $tabula) {
+        Schema::table($tabula, function (Blueprint $table) {
+            $table->integer('user_id')->after('id')->nullable();
+        });
+      }
     }
 
     /**

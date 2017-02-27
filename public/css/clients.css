@@ -31,37 +31,11 @@ tr .indextabula {
   font-size: 10px;
 }
 
-.navbar {
-  margin-bottom: 0;
-}
-
 .sharp {
   border-radius: 0;
 }
 
-#clientTitle {
-  padding-top: 60px;
-}
-
-#clientRow {
-  border-bottom: 1px solid grey;
-}
-
-#middleRow {
-  background: #caccd1;
-  border-bottom: 1px solid grey;
-}
-
-#sectionRow {
-  padding-top: 50px;
-  border-bottom: 1px solid grey;
-}
-
-.display-5.text-muted {
-  margin-bottom: 30px;
-}
-
-.ikona {
+.ikonas {
   font-size: 15px;
   color: grey;
   display: inline-block;
@@ -70,33 +44,33 @@ tr .indextabula {
   background-color: transparent;
 }
 
-.deleteForma {
-  display: inline-block;
+#middleRow {
+  background: #caccd1;
+  border-bottom: 1px solid grey;
 }
 
-.btn {
-  border-radius: 0;
-  text-transform: uppercase;
+.ieraksts {
+  padding-left: 0;
+  padding-right: 0;
 }
 
-.virsraksts {
-  color: white;
-  text-transform: uppercase;
-  text-shadow: 0 1px 2px black;
-  background-color: #0A6360;
+.ieraksts:nth-child(even) .col-xs-4 {
+  background: #FFFFFF;
 }
 
-.headingi2 {
-  color: white;
-  text-transform: uppercase;
-  text-shadow: 0 1px 2px black;
-  background-color: #5DD5D0;
+#sectionRow {
+  padding-top: 50px;
+  border-bottom: 1px solid grey;
 }
 
-.normalizee {
-  padding: 0;
+.info {
+  display: none;
 }
 
-.notshown {
+.darbibas {
+  display: none;
+}
+
+.kontakti {
   display: none;
 }

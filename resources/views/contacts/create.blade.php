@@ -2,9 +2,8 @@
 @section('title', "| Izveidot jaunu kontaktu")
 @section('content')
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-sm-6 col-md-offset-3">
       <h1>Izveidot jaunu kontaktu</h1>
-      <hr>
       {!! Form::open(['route' => 'contacts.store', 'id'=>'createContact']) !!}
         {{Form::label('contact_name', 'Vārds un uzvārds: ')}}
         {{Form::text('contact_name', null, array('class'=>'form-control')) }}

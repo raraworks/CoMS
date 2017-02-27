@@ -14,18 +14,24 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li class="{{Request::is('/') ? "active" : ""}}"><a href="/">Home</a></li>
-      <li class="{{Request::is('clients') ? "active" : ""}}"><a href="/clients">Klienti</a></li>
-      <li class="{{Request::is('actions') ? "active" : ""}}"><a href="/actions">Darbības</a></li>
-      <li class="{{Request::is('contacts') ? "active" : ""}}"><a href="/contacts">Kontaktpersonas</a></li>
+      <li class="{{Request::is('/') ? "active" : ""}}"><a href="/">{{trans('interface.dashboard')}}</a></li>
+      <li class="{{Request::is('clients*') ? "active" : ""}}"><a href="/clients">{{trans('interface.clients')}}</a></li>
+      <li class="{{Request::is('actions*') ? "active" : ""}}"><a href="/actions">{{trans('interface.actions')}}</a></li>
+      <li class="{{Request::is('contacts*') ? "active" : ""}}"><a href="/contacts">{{trans('interface.contacts')}}</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       @if (Auth::user())
-      <li>Lietotājs: {{Auth::user()->name}}</li>
-      <li><form action="{{ url('/logout') }}" method="POST" style="display: inline-block;">
-          {{ csrf_field() }}
-          <input type="submit" name="submit" value="Iziet">
-      </form></li>
+      <li><div class="user-area">
+        Lietotājs: {{Auth::user()->name}}
+      </span></li>
+      <li>
+        <div class="user-area">
+          <form action="{{ url('/logout') }}" method="POST" style="display: inline-block;">
+              {{ csrf_field() }}
+              <button type="submit" class="ikona" role="button"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button>
+          </form>
+        </div>
+      </li>
       @endif
     </ul>
   </div><!-- /.navbar-collapse -->
