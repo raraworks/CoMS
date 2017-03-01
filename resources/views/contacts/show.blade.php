@@ -3,32 +3,32 @@
 Apskatīt kontaktu: {{$contact->contact_name}}
 @endsection
 @section('content')
-  <div class="row">
-    <div class="col-sm-4 col-sm-offset-2">
+
+  <div class="row" id="topRow">
+    <div class="col-sm-10 col-sm-offset-1" id="titleArea">
       <h1 class="display-1">
-        {{ $contact->contact_name }}
+        {{ $contact->contact_name }} <a href="/actions/{{$contact->id}}/edit"><span class="glyphicon glyphicon-pencil ikonas" aria-hidden="true"></span></a>
+        {!! Form::open(['route' => ['contacts.destroy', $contact->id], 'class'=>'ikonas', 'method'=>'DELETE'])!!}
+        {{ Form::button('<span class="glyphicon glyphicon-remove ikonas" aria-hidden="true"></span>', ['class'=>'ikonas', 'role' => 'button', 'type' => 'submit'])}} {!!Form::close()!!}
       </h1>
-      <hr />
-    </div>
-    <div class="col-sm-4 text-center well">
-      <h3>Klients: {{$contact->client->title}}</h3>
-      <p>
-        Telefons: {{$contact->phone}}
-      </p>
-      <p>
-        E-pasts: {{$contact->email}}
-      </p>
-      <small>Ievietots: {{date('j.n.Y.', strtotime($contact->created_at))}}</small>
+      <h4 class="text-muted"> {{$contact->client->title}} <div class="pull-right">
+        <div class="phoneBox">
+          <span class="glyphicon glyphicon-earphone"></span> {{$contact->phone}}
+        </div> <a class="text-muted" href="mailto:{{$contact->email}}"> <span class="glyphicon glyphicon-envelope"></span> {{$contact->email}}</a>
+      </div></h4>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-2 col-sm-offset-2">
-    {{--  divos veidos var maršrutēt --}}
-      <a href="/contacts/{{$contact->id}}/edit" class="btn btn-primary">Labot</a>
-      {!! Html::linkRoute('contacts.destroy', 'Dzēst', array($contact->id), array('class'=>'btn btn-danger')) !!}
-      {!! Html::linkRoute('contacts.index', ' Atpakaļ <<', array(), array('class'=>'link')) !!}
+  {{-- <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 well">
+      <h3 class="display-5">Apraksts</h3>
+      <hr>
+      <div class="">
+        {{$action->content}}
+      </div>
+      <div class="pull-right"><small>Ievietots: {{ date('j.n.Y.', strtotime($action->created_at)) }}</small>
     </div>
   </div>
+  </div> --}}
 @endsection
 @section('stylesheets')
   <link rel="stylesheet" href="/css/clients.css">

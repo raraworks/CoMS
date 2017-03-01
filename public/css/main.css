@@ -1,9 +1,13 @@
 html {
   font-family: 'Muli', sans-serif;
+  height: 100%;
 }
 
 body {
   font-family: inherit;
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 4rem;
 }
 
 .btn {
@@ -16,6 +20,7 @@ body {
 
 .panel {
   border-radius: 0;
+  margin-bottom: 0;
 }
 
 .form-control {
@@ -24,6 +29,15 @@ body {
 
 .alert {
   border-radius: 0;
+}
+
+hr {
+  margin-top: 2px;
+  height: 1px;
+  background: -webkit-linear-gradient(to right, #43C6AC, #F8FFAE);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #43C6AC, #F8FFAE);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .navbar-default {
@@ -91,6 +105,10 @@ body {
   border-color: #BCF4E3;
 }
 
+.table {
+  margin-bottom: 0;
+}
+
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: rgba(248, 255, 174, 0.5);
 }
@@ -127,6 +145,23 @@ th {
   text-align: center;
 }
 
+.lessThanHour {
+  background-color: #ff7f7f;
+}
+
+.dashRow {
+  border-bottom: 1px solid grey;
+}
+
+.well {
+  border-radius: 0;
+  margin-top: 35px;
+}
+
+h3 {
+  margin-top: 0;
+}
+
 .pagination {
   border-radius: 0;
 }
@@ -154,4 +189,23 @@ th {
 
 .pagination li:last-child a {
   border-radius: 0;
+}
+
+.phoneBox {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.footer {
+  border-top: 1px solid grey;
+  margin: 20px 0 0 0;
+  width: 100%;
+  background: #43C6AC;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #43C6AC, #F8FFAE);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #43C6AC, #F8FFAE);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  position: absolute;
+  bottom: 0;
 }

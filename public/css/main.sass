@@ -1,18 +1,27 @@
 html
   font-family: 'Muli', sans-serif
+  height: 100%
 body
   font-family: inherit
+  min-height: 100%
+  position: relative
+  padding-bottom: 4rem
 .btn
   border-radius: 0
 .navbar
   margin-bottom: 0
 .panel
   border-radius: 0
+  margin-bottom: 0
 .form-control
   border-radius: 0
 .alert
   border-radius: 0
-
+hr
+  margin-top: 2px
+  height: 1px
+  background: -webkit-linear-gradient(to right, #43C6AC , #F8FFAE); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #43C6AC , #F8FFAE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 // NAV BAR
 
 .navbar-default
@@ -61,6 +70,8 @@ body
   border-color: #BCF4E3
 
 // CONTENT ROW
+.table
+  margin-bottom: 0
 .table-striped>tbody>tr:nth-of-type(odd)
   background-color: rgba(248,255,174,0.5)
 .table>tbody>tr>td
@@ -81,7 +92,18 @@ body
     border-color: #39B590
 th
   text-align: center
+.lessThanHour
+  background-color: #ff7f7f
+.dashRow
+  border-bottom: 1px solid grey
 
+//CONTENT ROW FOR ACTIONS
+
+.well
+  border-radius: 0
+  margin-top: 35px
+h3
+  margin-top: 0
 //PAGINATION
 .pagination
   border-radius: 0
@@ -98,9 +120,24 @@ th
     border-radius: 0
   li:last-child a
     border-radius: 0
-// background: -moz-linear-gradient(left, rgba(248,255,174,0.5) 0%, rgba(91,205,172,0.5) 100%)
+.phoneBox
+  display: inline-block
+  margin-right: 20px
+  // background: -moz-linear-gradient(left, rgba(248,255,174,0.5) 0%, rgba(91,205,172,0.5) 100%)
 // background: -webkit-gradient(left top, right top, color-stop(0%, rgba(248,255,174,0.5)), color-stop(100%, rgba(91,205,172,0.5)))
 // background: -webkit-linear-gradient(left, rgba(248,255,174,0.5) 0%, rgba(91,205,172,0.5) 100%)
 // background: -o-linear-gradient(left, rgba(248,255,174,0.5) 0%, rgba(91,205,172,0.5) 100%)
 // background: -ms-linear-gradient(left, rgba(248,255,174,0.5) 0%, rgba(91,205,172,0.5) 100%)
 // background: linear-gradient(to right, rgba(248,255,174,0.5) 0%, rgba(91,205,172,0.5) 100%)
+
+//FOOTER ROW
+
+.footer
+  border-top: 1px solid grey
+  margin: 20px 0 0 0
+  width: 100%
+  background: #43C6AC; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #43C6AC , #F8FFAE); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #43C6AC , #F8FFAE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  position: absolute
+  bottom: 0

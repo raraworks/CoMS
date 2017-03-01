@@ -22,7 +22,7 @@ class ActionController extends Controller
      */
     public function index()
     {
-      $actions = Action::orderBy('due_date', 'asc')->orderBy('due_time', 'asc')->paginate(8);
+      $actions = Action::where('user_id', '=', Auth::id())->orderBy('due_date', 'asc')->orderBy('due_time', 'asc')->paginate(8);
       return view("actions.index")->with('actions', $actions);
     }
 
@@ -126,7 +126,7 @@ class ActionController extends Controller
       $action->due_date = date('Y-m-d', strtotime($request->due_date));
       $action->due_time = date('H:i:s', strtotime($request->due_time));
         //save to DB
-      $action->save();
+      $action->update();
       //flash message in session flash('key', 'value')
       Session::flash('success', 'Darbība veiksmīgi labota!');
       //redirect to show

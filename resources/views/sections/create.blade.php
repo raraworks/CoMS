@@ -19,6 +19,10 @@
         {{Form::textarea('content', null, array('class'=>'form-control')) }}
         {{Form::submit('Izveidot', array('class' => 'btn btn-success'))}}
       {!! Form::close() !!} --}}
+      <form class="form-control" action="upload" enctype="multipart/form-data">
+        <input type="file" name="file[]" multiple>
+        <input type="submit">
+      </form>
     </div>
   </div>
 @endsection

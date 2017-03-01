@@ -1,10 +1,10 @@
 @extends('main')
 @section('content')
-  <div class="row">
-    <div class="col-md-6">
+  <div class="row dashRow">
+    <div class="col-md-6" id="todayTable">
       <h1>Šodienas darbības</h1>
       <hr>
-      <table class="table">
+      <table class="table text-center">
         <thead class="thead-inverse">
           <tr>
             <th>Datums</th>
@@ -25,17 +25,17 @@
                 <td>{{ $action->client->title }}</td>
                 <td>{{ $action->title }}</td>
                 <td>{{ Str::limit($action->content, 20, '...') }}</td>
-                <td>{!! Html::linkRoute('actions.show', 'Skatīt', array($action->id), array('class'=>'btn btn-primary')) !!}</td>
+                <td><a class="btn btn-primary showButton" href="/actions/{{$action->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a></td>
               </tr>
             {{-- @endif --}}
           @endforeach
         </tbody>
       </table>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" id="soonTable">
       <h1>Tuvākajā laikā</h1>
       <hr>
-      <table class="table">
+      <table class="table text-center">
         <thead class="thead-inverse">
           <tr>
             <th>Datums</th>
@@ -56,7 +56,7 @@
                 <td>{{ $actionFuture->client->title }}</td>
                 <td>{{ $actionFuture->title }}</td>
                 <td>{{ Str::limit($actionFuture->content, 20, '...') }}</td>
-                <td>{!! Html::linkRoute('actions.show', 'Skatīt', array($actionFuture->id), array('class'=>'btn btn-primary')) !!}</td>
+                <td><a class="btn btn-primary showButton" href="/actions/{{$actionFuture->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a></td>
               </tr>
             @endif
           @endforeach
@@ -67,12 +67,13 @@
         {!! $actionsFuture->links() !!}
       </div>
     </div>
+  </div>
     {{-- Aizgājušās darbības --}}
-
-    <div class="col-md-6">
+    <div class="row">
+    <div class="col-md-6" id="pastTable">
       <h1>Nesenās darbības</h1>
       <hr>
-      <table class="table">
+      <table class="table text-center">
         <thead class="thead-inverse">
           <tr>
             <th>Datums</th>
@@ -92,7 +93,7 @@
                 <td>{{ $actionPast->client->title }}</td>
                 <td>{{ $actionPast->title }}</td>
                 <td>{{ Str::limit($actionPast->content, 20, '...') }}</td>
-                <td>{!! Html::linkRoute('actions.show', 'Skatīt', array($actionPast->id), array('class'=>'btn btn-primary')) !!}</td>
+                <td><a class="btn btn-primary showButton" href="/actions/{{$actionPast->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a></td>
               </tr>
           @endforeach
         </tbody>
@@ -102,8 +103,6 @@
         {!! $actionsPast->links() !!}
       </div>
     </div>
-
   </div>
-
 @endsection
 @section('title', 'Dashboard')

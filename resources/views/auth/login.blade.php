@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/login.css">
     <title>CoMS</title>
 </head>
-<body>
+<body style="padding-bottom: 0">
   @if (Session::has('success'))
     <div class="alert alert-success " role="alert">
       <strong>{{ Session::get('success') }}</strong>
@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default" id="loginpanel">
-                <div class="panel-heading text-center"><img src="http://www.ika.lv/wp-content/uploads/2016/05/IKA_logo.png" alt="Industriālo Krāsu Apgāds" /></div>
+                <div class="panel-heading text-center"><img src="https://www.softaculous.com/website/images/customlogo.gif" alt="Industriālo Krāsu Apgāds" style="height: 100px"/></div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}

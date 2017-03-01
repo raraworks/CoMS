@@ -3,32 +3,28 @@
 Apskatīt darbību: {{$action->title}}
 @endsection
 @section('content')
-  <div class="row">
-    <div class="col-sm-4 col-sm-offset-2">
+  <div class="row" id="topRow">
+    <div class="col-sm-10 col-sm-offset-1" id="titleArea">
       <h1 class="display-1">
-        {{ $action->title }}
+        {{ $action->title }} <a href="/actions/{{$action->id}}/edit"><span class="glyphicon glyphicon-pencil ikonas" aria-hidden="true"></span></a>
+        {!! Form::open(['route' => ['actions.destroy', $action->id], 'class'=>'ikonas', 'method'=>'DELETE'])!!}
+        {{ Form::button('<span class="glyphicon glyphicon-remove ikonas" aria-hidden="true"></span>', ['class'=>'ikonas', 'role' => 'button', 'type' => 'submit'])}} {!!Form::close()!!}
       </h1>
-      <hr />
-    </div>
-    <div class="col-sm-4 text-center well">
-      <h3 class="display-5 text-muted">{{$action->client->title}}</h2>
-      <h3>Termiņš: {{date('j.n.Y.', strtotime($action->due_date))}} <br> plkst. {{date('G:i', strtotime($action->due_time))}}</h3>
-      <p>
-        Apraksts: {{$action->content}}
-      </p>
-      <small>Ievietots: {{ date('j.n.Y.', strtotime($action->created_at)) }}</small>
+      <h4 class="text-muted">{{$action->client->title}} <div class="pull-right">
+        Termiņš: {{date('j.n.Y.', strtotime($action->due_date))}} plkst. {{date('G:i', strtotime($action->due_time))}}
+      </div></h4>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-2 col-sm-offset-2">
-    {{--  divos veidos var maršrutēt --}}
-      {{-- <a href="/clients/{{$action->id}}/edit" class="btn btn-primary">Labot</a> --}}
-      {!! Html::linkRoute('actions.edit', 'Labot', array($action->id), array('class'=>'btn btn-primary')) !!}
-      {!! Form::open(['route' => ['actions.destroy', $action->id], 'method'=>'DELETE'])!!}
-      {!!Form::submit('Dzēst', ['class'=>'btn btn-danger'])!!}
-      {!!Form::close()!!}
-      {!! Html::linkRoute('actions.index', ' Atpakaļ <<', array(), array('class'=>'link')) !!}
+    <div class="col-sm-10 col-sm-offset-1 well">
+      <h3 class="display-5">Apraksts</h3>
+      <hr>
+      <div class="">
+        {{$action->content}}
+      </div>
+      <div class="pull-right"><small>Ievietots: {{ date('j.n.Y.', strtotime($action->created_at)) }}</small>
     </div>
+  </div>
   </div>
 @endsection
 @section('stylesheets')
