@@ -26,6 +26,12 @@ Labot darbību: {{$action->title}}
   </div>
 @endsection
 @section('stylesheets')
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.4/tinymce.min.js"></script>
+  <script>tinymce.init({
+    selector:'textarea',
+    plugins: "link advlist",
+    menubar: "false"
+  });</script>
   <link rel="stylesheet" href="/css/clients.css">
   <link rel="stylesheet" href="/css/parsley.css">
   <link rel="stylesheet" href="/css/jquery.datetimepicker.min.css">

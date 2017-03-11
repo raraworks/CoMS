@@ -14,6 +14,6 @@ class Client extends Model
       return $this->hasMany('App\Action');
     }
     public function sections(){
-      return $this->hasMany('App\Section', 'client_id');
+      return $this->hasMany('App\Section');
     }
 }

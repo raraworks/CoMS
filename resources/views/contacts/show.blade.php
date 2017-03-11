@@ -7,7 +7,7 @@ Apskatīt kontaktu: {{$contact->contact_name}}
   <div class="row" id="topRow">
     <div class="col-sm-10 col-sm-offset-1" id="titleArea">
       <h1 class="display-1">
-        {{ $contact->contact_name }} <a href="/actions/{{$contact->id}}/edit"><span class="glyphicon glyphicon-pencil ikonas" aria-hidden="true"></span></a>
+        {{ $contact->contact_name }} <a href="/contacts/{{$contact->id}}/edit"><span class="glyphicon glyphicon-pencil ikonas" aria-hidden="true"></span></a>
         {!! Form::open(['route' => ['contacts.destroy', $contact->id], 'class'=>'ikonas', 'method'=>'DELETE'])!!}
         {{ Form::button('<span class="glyphicon glyphicon-remove ikonas" aria-hidden="true"></span>', ['class'=>'ikonas', 'role' => 'button', 'type' => 'submit'])}} {!!Form::close()!!}
       </h1>

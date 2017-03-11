@@ -24,7 +24,7 @@
                 </td>
                 <td>{{ $action->client->title }}</td>
                 <td>{{ $action->title }}</td>
-                <td>{{ Str::limit($action->content, 20, '...') }}</td>
+                <td>{{ Str::limit(strip_tags($action->content), 10, '...') }}</td>
                 <td><a class="btn btn-primary showButton" href="/actions/{{$action->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a></td>
               </tr>
             {{-- @endif --}}
@@ -55,7 +55,7 @@
                 </td>
                 <td>{{ $actionFuture->client->title }}</td>
                 <td>{{ $actionFuture->title }}</td>
-                <td>{{ Str::limit($actionFuture->content, 20, '...') }}</td>
+                <td>{{ Str::limit(strip_tags($actionFuture->content), 10, '...') }}</td>
                 <td><a class="btn btn-primary showButton" href="/actions/{{$actionFuture->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a></td>
               </tr>
             @endif
@@ -92,7 +92,7 @@
                 </td>
                 <td>{{ $actionPast->client->title }}</td>
                 <td>{{ $actionPast->title }}</td>
-                <td>{{ Str::limit($actionPast->content, 20, '...') }}</td>
+                <td>{{ Str::limit(strip_tags($actionPast->content), 10, '...') }}</td>
                 <td><a class="btn btn-primary showButton" href="/actions/{{$actionPast->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a></td>
               </tr>
           @endforeach
@@ -104,5 +104,10 @@
       </div>
     </div>
   </div>
+  <script>
+    var actions = @php
+      echo $subset;
+    @endphp
+  </script>
 @endsection
 @section('title', 'Dashboard')

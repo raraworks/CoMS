@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Attachment;
 use App\Client;
+use Storage;
 use App\Contact;
 use App\Section;
 use App\Action;
@@ -143,6 +145,23 @@ class ClientController extends Controller
     public function destroy($id)
     {
         $client = Client::find($id);
+        $actions = Client::find($id)->actions;
+        $sections = Client::find($id)->sections;
+        foreach ($actions as $aaa) {
+          $ids = $aaa->id;
+          $attachments = Attachment::where('related_id', '=', $ids)->where('related_type', 'App\Action')->get();
+          foreach ($attachments as $attachment) {
+            Storage::delete('/actionAttach/'.$attachment->filename);
+          }
+        }
+        $sections = Client::find($id)->sections;
+        foreach ($sections as $section) {
+          $ids = $section->id;
+          $attachments = Attachment::where('related_id', '=', $ids)->where('related_type', 'App\Section')->get();
+          foreach ($attachments as $attachment) {
+            Storage::delete('/sectionAttach/'.$attachment->filename);
+          }
+        }
         $client->delete();
         Session::flash('success', 'Klients veiksmīgi izdzēsts!');
         return redirect()->route('clients.index');

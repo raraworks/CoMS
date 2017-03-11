@@ -1,6 +1,6 @@
 <div class="row" id="middleRow">
      <div class="col-sm-10 col-sm-offset-1" id="controlRow">
-       <button type="button" class="btn kontrole" id="kontakti">Kontaktpersonas</button>
+       <button type="button" class="btn kontrole activated" id="kontakti">Kontaktpersonas</button>
        <button type="button" class="btn kontrole" id="darbibas">Darbības</button>
        <button type="button" class="btn kontrole" id="info">Informācija</button>
      </div>
@@ -16,7 +16,7 @@
                   <th>Vārds</th>
                   <th>Telefons</th>
                   <th>E-pasts</th>
-                  <th>Klients</th>
+                  <th>Amats/atbildīgs par</th>
                 </tr>
               </thead>
               <tbody>
@@ -25,7 +25,7 @@
                     <td>{{ $contact->contact_name }}</td>
                     <td>{{ $contact->phone }}</td>
                     <td>{{ $contact->email }}</td>
-                    <td>{{ $contact->client->title }}</td>
+                    <td>{{ $contact->position }}</td>
                     <td>
                       <a class="btn btn-primary showButton" href="/contacts/{{$contact->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a>
 
@@ -66,7 +66,7 @@
                     <td>{{ date('j.m.Y.', strtotime($action->due_date))}}</td>
                     <td>{{ date('G:i', strtotime($action->due_time)) }}</td>
                     <td>{{$action->title}}</td>
-                    <td>{{ Str::limit($action->content, 20, '...') }}</td>
+                    <td>{{ Str::limit(strip_tags($action->content), 20, '...') }}</td>
                     <td>
                       <a class="btn btn-primary showButton" href="/actions/{{$action->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a>
 
@@ -93,22 +93,6 @@
           {!! Html::linkRoute('sections.create', 'Pievienot sadaļu', array('client' => $client->id), array('class'=>'btn btn-default')) !!}
         </div>
         @foreach ($sections as $section)
-            {{-- <div class="col-xs-12">
-              <div class="well nopadding">
-                <h4>{{ $section->section_name }} <a href="/clients/{{$client->id}}/section/{{$section->id}}/edit"><span class="glyphicon glyphicon-pencil ikonas" aria-hidden="true"></span></a>
-
-                <form class="ikonas" action="{{ route('sections.destroy', ['client' => $client->id, 'id' => $section->id]) }}" method="POST">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                  <input type="hidden" name="_method"  value="DELETE">
-                  <button type="submit" class="ikonas" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                </form></h4>
-                <div class="col-xs-12">
-                  <p>
-                    {{ $section->content }}
-                  </p>
-                </div>
-              </div>
-          </div> --}}
           <div class="col-sm-10 col-sm-offset-1 well">
             <h4 class="display-5">{{$section->section_name}}
               <div class="pull-right">
@@ -121,10 +105,18 @@
             </div>
             </h4>
             <hr>
-            <div class="">
-              {{ $section->content }}
+            <div>
+              {!! $section->content !!}
             </div>
-            {{-- <div class="pull-right"><small>Ievietots: {{ date('j.n.Y.', strtotime($action->created_at)) }}</small> --}}
+            @foreach ($section->attachments as $attachment)
+              <a href="{{ route('files.section', ['filename' => $attachment->filename]) }}" target="_blank">{{$attachment->filename}}</a>
+              <form class="ikonas" action="{{ route('files.section.destroy', ['filename' => $attachment->filename]) }}" method="POST">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="_method"  value="DELETE">
+                <button type="submit" class="ikonas" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+              </form>
+              <br />
+            @endforeach
           </div>
           @endforeach
         </div>

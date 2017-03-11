@@ -23,5 +23,12 @@ Route::delete('clients/{client}/section/{id}', 'SectionController@destroy')->nam
 // Route::get('/login', ['uses' => 'Auth/LoginController'])->middleware->('web')
 Route::get('/search', 'ClientController@search')->name('clients.search');
 Auth::routes();
-
+Route::get('/actionAttach/{filename}', 'FileController@getActionFile')->name('files.action');
+Route::get('/sectionAttach/{filename}', 'FileController@getSectionFile')->name('files.section');
+Route::delete('/sectionAttach/{filename}/delete', 'FileController@destroySectionFile')->name('files.section.destroy');
 Route::get('/home', 'HomeController@index');
+Route::get('/admin', [
+  'uses' => 'PagesController@adminPanel',
+  'as' => 'admin.panel',
+  'middleware' => 'admin'
+  ]);

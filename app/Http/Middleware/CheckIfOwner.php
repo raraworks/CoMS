@@ -20,7 +20,10 @@ class CheckIfOwner
      */
     public function handle($request, Closure $next)
     {
-
+      if ($request->user()->hasRole('admin')) {
+        return $next($request);
+      }
+      else {
         $urli = $request->segment(1, $request->path());
         switch ($urli) {
           case 'actions':
@@ -39,12 +42,13 @@ class CheckIfOwner
 
         $requested = $modelis::find($request->route($iden));
 
-        if($requested->user_id != Auth::id())
+        if($requested->user_id = Auth::id())
         {
-          return back()->withErrors(['Jūs neesat autorizēti veikt šādu darbību!']);
-        }
-        else {
           return $next($request);
         }
+        else {
+          return back()->withErrors(['Jūs neesat autorizēti veikt šādu darbību!']);
+        }
+      }
     }
 }

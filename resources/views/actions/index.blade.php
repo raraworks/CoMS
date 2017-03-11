@@ -41,7 +41,7 @@
                 <td>{{ date('G:i', strtotime($action->due_time)) }}</td>
                 <td>{{ $action->client->title }}</td>
                 <td>{{ $action->title }}</td>
-                <td>{{ Str::limit($action->content, 10, '...') }}</td>
+                <td>{{ Str::limit(strip_tags($action->content), 10, '...') }}</td>
                 <td>
                   <a class="btn btn-primary showButton" href="/actions/{{$action->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a>
 

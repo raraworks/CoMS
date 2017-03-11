@@ -13,6 +13,8 @@ Labot kontaktu: {{$contact->contact_name}}
         {{Form::text('phone', null, array('class'=>'form-control')) }}
         {{Form::label('email', 'E-pasta adrese: ')}}
         {{Form::text('email', null, array('class'=>'form-control')) }}
+        {{Form::label('position', 'Amats/atbildīgs par:')}}
+        {{Form::text('position', null, array('class'=>'form-control')) }}
         {{Form::label('client_id', 'Klients: ')}}
         <select class="form-control" name="client_id">
           @foreach ($clients as $client)

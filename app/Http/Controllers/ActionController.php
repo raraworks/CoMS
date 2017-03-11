@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Action;
 use App\Client;
+use App\Attachment;
 use Session;
 
 class ActionController extends Controller
@@ -62,8 +64,19 @@ class ActionController extends Controller
       $action->due_date = date('Y-m-d', strtotime($request->due_date));
       $action->due_time = date('H:i:s', strtotime($request->due_time));
       $action->user_id = $user;
-        //save to DB
       $action->save();
+      if ($request->hasFile('attachments')) {
+        $files = $request->file('attachments');
+        foreach ($files as $file) {
+          $attachment = new Attachment();
+          $filename = $file->getClientOriginalName();
+          $attachment->mime = $file->getClientMimeType();
+          $attachment->filename = $action->id."_".$filename;
+          $action->attachments()->save($attachment);
+          $file->storeAs('actionAttach', $action->id."_".$filename);
+        }
+      }
+      //save to DB
       //flash message in session flash('key', 'value')
       Session::flash('success', 'Darbība veiksmīgi izveidota!');
       //redirect to show
@@ -81,9 +94,15 @@ class ActionController extends Controller
       //find id in database
       //ja atrod pieskir $client visu array (row) no DB
       $action = Action::find($id);
-      //pass $client saturu no DB, uz skatu (izmanto with metodi)
-      //with(nosaukums skatā, mainīgā nosaukums kurs satur info)
-        return view('actions.show')->with('action', $action);
+      if (!$action) {
+        return abort(404, 'Page not found');
+      } else {
+        $att = $action->attachments;
+        //pass $client saturu no DB, uz skatu (izmanto with metodi)
+        //with(nosaukums skatā, mainīgā nosaukums kurs satur info)
+        return view('actions.show')->with('action', $action)->with('att', $att);
+      }
+
     }
 
     /**
@@ -142,6 +161,10 @@ class ActionController extends Controller
     public function destroy($id)
     {
       $action = Action::find($id);
+      $attachments = $action->attachments;
+      foreach ($attachments as $attachment) {
+        Storage::delete('/actionAttach/'.$attachment->filename);
+      }
       $action->delete();
       Session::flash('success', 'Darbība veiksmīgi izdzēsta!');
       return redirect()->route('actions.index');

@@ -20,10 +20,20 @@ Apskatīt darbību: {{$action->title}}
       <h3 class="display-5">Apraksts</h3>
       <hr>
       <div class="">
-        {{$action->content}}
+        {!!$action->content!!}
       </div>
       <div class="pull-right"><small>Ievietots: {{ date('j.n.Y.', strtotime($action->created_at)) }}</small>
     </div>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 well">
+      <h3 class="display-5">Pielikumi</h3>
+      <hr>
+      @foreach ($att as $oneatt)
+        <a href="{{ route('files.action', ['filename' => $oneatt->filename]) }}" target="_blank">{{$oneatt->filename}}</a>
+      @endforeach
+
   </div>
   </div>
 @endsection

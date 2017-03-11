@@ -59,6 +59,7 @@ class ContactController extends Controller
       $contact->contact_name = $request->contact_name;
       $contact->phone = $request->phone;
       $contact->email = $request->email;
+      $contact->position = $request->position;
       // TODO: Jāpārveido form text laukā ievadītais nosaukums ar id un jāstoro ID
       $contact->client_id = $request->client_id;
       $contact->user_id = $user;
@@ -119,6 +120,7 @@ class ContactController extends Controller
       $contact->contact_name = $request->contact_name;
       $contact->phone = $request->phone;
       $contact->email = $request->email;
+      $contact->position = $request->position;
       $contact->client_id = $request->client_id;
       //commit save to DB
       $contact->save();
