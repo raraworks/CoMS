@@ -13,6 +13,7 @@
         <div class="col-sm-12">
           <thead class="thead">
             <tr>
+              <th></th>
               <th>Vārds</th>
               <th>E-pasts</th>
               <th>Lietotājs</th>
@@ -22,6 +23,9 @@
           <tbody>
             @foreach($users as $user)
               <tr class="indextabula">
+                <td>
+                  <a href="/admin/search?id={{$user->id}}"><span class="glyphicon glyphicon-eye-open ikonas" aria-hidden="true"></span></a>
+                </td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td><input type="checkbox" name="role_user" {{ $user->hasRole('user') ? 'checked' : '' }}></td>

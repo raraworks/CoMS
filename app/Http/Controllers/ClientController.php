@@ -168,6 +168,9 @@ class ClientController extends Controller
     }
     public function search(Request $request)
     {
+      if ($request->ajax()) {
+        return $request;
+      }
       $keyword = $request->input('term');
       $results = Client::where('title', 'LIKE', '%'.$keyword.'%')->get();
       return view('clients.search')->with('results', $results)->with('keyword', $keyword);

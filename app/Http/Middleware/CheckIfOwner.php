@@ -20,35 +20,36 @@ class CheckIfOwner
      */
     public function handle($request, Closure $next)
     {
-      if ($request->user()->hasRole('admin')) {
+      $urli = $request->segment(1, $request->path());
+      switch ($urli) {
+        case 'actions':
+          $modelis = new Action();
+          $iden = "action";
+          break;
+        case 'clients':
+          $modelis = new Client();
+          $iden = "client";
+          break;
+        case 'contacts':
+          $modelis = new Contact();
+          $iden = "contact";
+          break;
+      }
+
+      $requested = $modelis::find($request->route($iden));
+      if($requested->user_id == Auth::user()->id || Auth::user()->hasRole('admin'))
+      {
         return $next($request);
       }
       else {
-        $urli = $request->segment(1, $request->path());
-        switch ($urli) {
-          case 'actions':
-            $modelis = new Action();
-            $iden = "action";
-            break;
-          case 'clients':
-            $modelis = new Client();
-            $iden = "client";
-            break;
-          case 'contacts':
-            $modelis = new Contact();
-            $iden = "contact";
-            break;
-        }
-
-        $requested = $modelis::find($request->route($iden));
-
-        if($requested->user_id = Auth::id())
-        {
-          return $next($request);
-        }
-        else {
-          return back()->withErrors(['Jūs neesat autorizēti veikt šādu darbību!']);
-        }
+        return back()->withErrors(['Jūs neesat autorizēti veikt šādu darbību!']);
       }
+
     }
 }
+
+// if ($request->user()->hasRole('admin')) {
+//   return $next($request);
+// }
+// else {
+// }

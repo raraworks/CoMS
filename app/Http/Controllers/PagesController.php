@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Action;
 use App\User;
 use Session;
+use Illuminate\Http\Request;
 /**
  *
  */
@@ -39,6 +40,13 @@ class PagesController extends Controller
   {
     $users = User::all();
     return view('admin')->with('users', $users);
+  }
+  public function adminSearch(Request $request)
+  {
+    $user = User::find($request->query('id'));
+    $userActions = Action::where('user_id', $user->id)->orderBy('due_date', 'desc')
+    ->orderBy('due_time', 'desc')->paginate(8, ['*'], 'useractionlist');
+    return view('searchactions')->with('userActions', $userActions)->with('user', $user);
   }
 }
 

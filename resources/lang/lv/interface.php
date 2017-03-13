@@ -3,6 +3,7 @@ return [
   'dashboard' => 'Galvenā',
   'clients' => 'Klienti',
   'actions'=> 'Darbības',
-  'contacts'=> 'Kontaktpersonas'
+  'contacts'=> 'Kontaktpersonas',
+  'adminPanel' => 'Admin' 
 ];
 ?>

@@ -21,6 +21,9 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       @if (Auth::user())
+        @if (Auth::user()->hasRole('admin'))
+          <li class="{{Request::is('admin') ? "active" : ""}}"><a href="/admin">{{trans('interface.adminPanel')}}</a></li>
+        @endif
       <li><div class="user-area">
         Lietotājs: {{Auth::user()->name}}
       </span></li>

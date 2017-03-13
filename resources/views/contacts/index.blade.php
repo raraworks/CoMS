@@ -11,6 +11,12 @@
           <div class="col-sm-2 ash1">
             <a href="{{ route('contacts.create') }}" class="btn btn-success pull-right" id="addBox"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>   Pievienot</a>
           </div>
+          <div class="col-sm-2 ash1">
+              <input type="text" name="seerch" placeholder="Meklēt" class="form-control" id="seerch">
+          </div>
+          <div class="col-sm-1 ash1">
+            <button type="submit" title="Meklēt" class="btn btn-primary" id="searchIcon"><span class="glyphicon glyphicon-search"></span></button>
+          </div>
           {{-- <form action="{{ route('clients.search') }}" method="get" id="searchForm">
           <div class="col-sm-2 ash1">
               <input type="text" name="term" placeholder="Meklēt" class="form-control" id="searchBox">
@@ -62,4 +68,10 @@
         {!! $contacts->links() !!}
       </div>
     </div>
+    <div class="resultbox">
+
+    </div>
+@endsection
+@section('scripts')
+  <script src="/js/search.js"></script>
 @endsection
