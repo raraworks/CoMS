@@ -209,3 +209,11 @@ h3 {
   position: absolute;
   bottom: 0;
 }
+
+.strikeTrough {
+  text-decoration: line-through;
+}
+
+#todayTable, #soonTable, #pastTable {
+  display: none;
+}

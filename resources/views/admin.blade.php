@@ -2,9 +2,15 @@
 @section('content')
   <div class="row" id="topRow">
     <div class="col-sm-10 col-sm-offset-1" id="titleArea">
-      <h1 class="display-1">
-        Administratīvais panelis
-      </h1>
+      <div class="col-sm-10">
+        <h1 class="display-1">
+          Administratīvais panelis
+        </h1>
+      </div>
+      <div class="col-sm-2 ash1">
+        <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#searchModal"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Meklēt</button>
+        {{-- <a href="{{ route('admin.search') }}" class="btn btn-success pull-right" id="addBox"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>   Pievienot</a> --}}
+      </div>
     </div>
   </div>
   <div class="row col-sm-10 col-sm-offset-1">
@@ -37,5 +43,30 @@
       </table>
     </div>
   </div>
+  {{-- <!-- Modal -->
+  <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Meklēšana</h4>
+        </div>
+        <div class="modal-body">
+          <form id="searchForm" action="{{ route('admin.search') }}" method="get">
+            <div class="form-group">
+
+              <input type="radio" name="type" value="action"><label for="action">Darbība</label>
+              <input type="radio" name="type" value="client"><label for="client">Klients</label>
+              <input type="radio" name="type" value="contact"><label for="contact">Kontaktpersona</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Aizvērt</button>
+          <button id="searchButton" type="button" class="btn btn-primary">Meklēt</button>
+        </div>
+      </div>
+    </div>
+  </div> --}}
 @endsection
 @section('title', 'Admin dashboard')

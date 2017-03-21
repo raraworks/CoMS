@@ -1,9 +1,12 @@
 @extends('main')
+@section('stylesheets')
+
+@endsection
 @section('title', '| Kontakti ')
 @section('content')
     <div class="row" id="topRow">
       <div class="col-sm-10 col-sm-offset-1" id="titleArea">
-        <div class="col-sm-10">
+        <div class="col-sm-7">
           <h1 class="display-1">
             Kontakti
           </h1>
@@ -12,7 +15,8 @@
             <a href="{{ route('contacts.create') }}" class="btn btn-success pull-right" id="addBox"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>   Pievienot</a>
           </div>
           <div class="col-sm-2 ash1">
-              <input type="text" name="seerch" placeholder="Meklēt" class="form-control" id="seerch">
+            {{-- <div style="display: none" class="loadingIcon ">loading...</div> --}}
+              <input type="text" name="term" placeholder="Meklēt" class="form-control" id="term">
           </div>
           <div class="col-sm-1 ash1">
             <button type="submit" title="Meklēt" class="btn btn-primary" id="searchIcon"><span class="glyphicon glyphicon-search"></span></button>
@@ -39,7 +43,7 @@
               <th></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="tabula">
             @foreach($contacts as $contact)
               <tr class="indextabula">
                 <td>{{ $contact->contact_name }}</td>

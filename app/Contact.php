@@ -13,4 +13,5 @@ class Contact extends Model
     public function client(){
       return $this->belongsTo('App\Client', 'client_id');
     }
+    protected $hidden = ['id', 'user_id', "client_id", "created_at", "updated_at"];
 }

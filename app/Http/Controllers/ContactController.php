@@ -143,4 +143,14 @@ class ContactController extends Controller
       Session::flash('success', 'Kontaktpersona veiksmīgi izdzēsta!');
       return redirect()->route('contacts.index');
     }
+
+    public function search(Request $request)
+    {
+      if ($request->ajax()) {
+        //atrodam DB
+        $contacts = Contact::where("contact_name", 'LIKE', '%'.$request->input('term').'%')->with('client')->get();
+        $returnView = view('contacts.ajaxviews.search')->with('contacts', $contacts)->render();
+        return response()->json($returnView);
+      }
+    }
 }

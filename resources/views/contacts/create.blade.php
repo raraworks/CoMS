@@ -5,6 +5,12 @@
     <div class="col-sm-6 col-md-offset-3">
       <h1>Izveidot jaunu kontaktu</h1>
       {!! Form::open(['route' => 'contacts.store', 'id'=>'createContact']) !!}
+        {{Form::label('client_id', 'Klients: ')}}
+        <select class="form-control" name="client_id">
+          @foreach ($clients as $client)
+            <option value="{{$client->id}}">{{$client->title}}</option>
+          @endforeach
+        </select>
         {{Form::label('contact_name', 'Vārds un uzvārds: ')}}
         {{Form::text('contact_name', null, array('class'=>'form-control')) }}
         {{Form::label('phone', 'Telefons: ')}}
@@ -13,12 +19,6 @@
         {{Form::text('email', null, array('class'=>'form-control')) }}
         {{Form::label('position', 'Amats/atbildīgs par:')}}
         {{Form::text('position', null, array('class'=>'form-control')) }}
-        {{Form::label('client_id', 'Klients: ')}}
-        <select class="form-control" name="client_id">
-          @foreach ($clients as $client)
-            <option value="{{$client->id}}">{{$client->title}}</option>
-          @endforeach
-        </select>
         {{-- {{Form::text('client_name', null, array('class'=>'form-control')) }} --}}
         {{Form::submit('Izveidot', array('class' => 'btn btn-success'))}}
       {!! Form::close() !!}

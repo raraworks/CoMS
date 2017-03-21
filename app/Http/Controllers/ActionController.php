@@ -114,7 +114,7 @@ class ActionController extends Controller
     public function edit($id)
     {
       $action = Action::find($id);
-      $clients = Client::all();
+      $clients = Client::all()->except($action->client->id);
       $due_date = date('d.m.Y', strtotime($action->due_date));
       $due_time = date('H:i', strtotime($action->due_time));
       return view('actions.edit')->with('action', $action)->with('clients', $clients)->with('due_date', $due_date)->with('due_time', $due_time);
@@ -129,6 +129,21 @@ class ActionController extends Controller
      */
     public function update(Request $request, $id)
     {
+      if ($request->ajax()) {
+        $action = Action::find($id);
+        $numba = $request->input('done');
+        // TODO DIVKĀRŠĀ SALĪDZINĀŠANA!
+        if ($numba == 0) {
+          $action->is_done = true;
+          $action->update();
+          return response()->json(["isDone" => 1]);
+        }
+        else {
+          $action->is_done = false;
+          $action->update();
+          return response()->json(["isDone" => 0]);
+        }
+      }
       //validate from data ja buus errori tos ievietos $errors array, flash sessionā! un atgriezīsies pie create!
       $this->validate($request, array(
         //ja vairāki noteikumi izmanto |

@@ -55,7 +55,7 @@
                 <tr>
                   <th>Datums</th>
                   <th>Laiks</th>
-                  <th>Darbība</th>
+                  <th>Darbības veids</th>
                   <th>Apraksts</th>
                   <th></th>
                 </tr>

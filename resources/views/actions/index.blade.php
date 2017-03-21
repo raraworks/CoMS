@@ -29,8 +29,9 @@
               <th>Datums</th>
               <th>Laiks</th>
               <th>Klients</th>
-              <th>Darbība</th>
+              <th>Darbības veids</th>
               <th>Apraksts</th>
+              <th>Statuss</th>
               <th></th>
             </tr>
           </thead>
@@ -42,6 +43,9 @@
                 <td>{{ $action->client->title }}</td>
                 <td>{{ $action->title }}</td>
                 <td>{{ Str::limit(strip_tags($action->content), 10, '...') }}</td>
+                <td>
+                  {{ $action->is_done ? 'Pabeigts' : 'Nav pabeigts' }}
+                </td>
                 <td>
                   <a class="btn btn-primary showButton" href="/actions/{{$action->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a>
 

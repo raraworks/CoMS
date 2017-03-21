@@ -10,7 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/contacts/search', [
+  'uses' => 'ContactController@search',
+  'as' => "contacts.search"
+]);
+Route::get('/admin/search', [
+  'uses' => 'PagesController@adminSearch',
+  'as' => 'admin.search',
+  'middleware' => 'admin'
+  ]);
 Route::get('/', 'PagesController@getIndex');
 Route::resource('clients', 'ClientController');
 Route::resource('actions', "ActionController");
@@ -31,9 +39,6 @@ Route::get('/admin', [
   'as' => 'admin.panel',
   'middleware' => 'admin'
   ]);
-Route::get('/admin/search', [
-  'uses' => 'PagesController@adminSearch',
-  'as' => 'admin.search',
-  'middleware' => 'admin'
-  ]);
+
+
 Auth::routes();

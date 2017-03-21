@@ -10,6 +10,9 @@ Skatīt lietotāja {{$user->name}} darbības
             Lietotāja {{$user->name}} darbības
           </h1>
         </div>
+        <div class="col-sm-2 ash1">
+          <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#searchModal"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Filtrēt</button>
+        </div>
       </div>
     </div>
     <div class="row" id="contentRow">
@@ -20,12 +23,13 @@ Skatīt lietotāja {{$user->name}} darbības
               <th>Datums</th>
               <th>Laiks</th>
               <th>Klients</th>
-              <th>Darbība</th>
+              <th>Darbības veids</th>
               <th>Apraksts</th>
+              <th>Statuss</th>
               <th></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="tabula">
             @foreach($userActions as $userAction)
               <tr class="indextabula">
                 <td>{{date('j.m.Y.', strtotime($userAction->due_date))}}</td>
@@ -33,6 +37,9 @@ Skatīt lietotāja {{$user->name}} darbības
                 <td>{{ $userAction->client->title }}</td>
                 <td>{{ $userAction->title }}</td>
                 <td>{{ Str::limit(strip_tags($userAction->content), 10, '...') }}</td>
+                <td>
+                  {{ $userAction->is_done ? 'Pabeigts' : 'Nav pabeigts' }}
+                </td>
                 <td>
                   <a class="btn btn-primary showButton" href="/actions/{{$userAction->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a>
 
@@ -55,4 +62,43 @@ Skatīt lietotāja {{$user->name}} darbības
         {!! $userActions->appends(['id' => $user->id])->links() !!}
       </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Darbību filtrs</h4>
+          </div>
+          <div class="modal-body">
+            <form id="searchForm" action="{{ route('admin.search') }}" method="get">
+              <div class="form-group">
+                <h4>Darbības veids</h4>
+                <input type="checkbox" name="call" value="1" checked/><label for="call">Zvans</label>
+                <input type="checkbox" name="meeting" value="1" checked/><label for="meeting">Vizīte</label>
+                <input type="checkbox" name="offer" value="1" checked/><label for="offer">Piedāvājums</label>
+                <hr>
+                <h4>Darbības statuss</h4>
+                <input type="radio" class="status" name="status" value="0" /><label for="action">Nav pabeigts</label>
+                <input type="radio" class="status" name="status" value="1" /><label for="client">Pabeigts</label>
+                <hr>
+                <h4>Klients</h4>
+                <input class="form-control" type="text" name="client_name" placeholder="Klienta nosaukums">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Aizvērt</button>
+            <button id="searchButton" type="button" class="btn btn-primary">Meklēt</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var url = "{{ route('admin.search')}}";
+    </script>
+@endsection
+@section('scripts')
+  <script src="/js/adminsearch.js">
+  </script>
 @endsection

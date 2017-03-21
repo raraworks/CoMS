@@ -26,6 +26,7 @@
   });</script>
   <link rel="stylesheet" href="/css/clients.css">
   {{-- <link rel="stylesheet" href="/css/parsley.css"> --}}
+  <link rel="stylesheet" href="/css/create.css">
 @endsection
 @section('scripts')
   <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.6.2/parsley.min.js" integrity="sha256-QKOftzbqahZaXS2amOh27JacZ6TbmT4TmGxNo4Jue4Y=" crossorigin="anonymous"></script>

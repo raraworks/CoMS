@@ -11,10 +11,10 @@
             <option value="{{$client->id}}">{{$client->title}}</option>
           @endforeach
         </select>
-        {{Form::label('title', 'Nosaukums: ')}}
-        {{Form::text('title', null, array('class'=>'form-control')) }}
+        {{Form::label('title', 'Veids: ')}}
+        {{Form::select('title', array('Zvans' => 'Zvans', 'Vizīte' => 'Vizīte', 'Piedāvājums' => 'Piedāvājums'), null, array('class'=>'form-control')) }}
         {{Form::label('due_date', 'Atgādinājums: ')}}
-        <div class="form-group">
+        <div>
           {{Form::text('due_date', 'DD.MM.GGGG', array('class'=>'form-control form-inline', 'id'=>'datetimepicker')) }}
           {{Form::text('due_time', 'SS:MM', array('class'=>'form-control', 'id'=>'datetimepicker1')) }}
         </div>

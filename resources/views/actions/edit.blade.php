@@ -9,18 +9,23 @@ Labot darbību: {{$action->title}}
       {!! Form::model($action, ['route' => ['actions.update', $action->id], 'method' => 'PUT']) !!}
       {{Form::label('client_id', 'Klients: ')}}
       <select class="form-control" name="client_id">
+        <option value="{{ $action->client->id }}" selected>
+          {{$action->client->title}}
+        </option>
         @foreach ($clients as $client)
           <option value="{{$client->id}}">{{$client->title}}</option>
         @endforeach
       </select>
-      {{Form::label('title', 'Nosaukums: ')}}
-      {{Form::text('title', null, array('class'=>'form-control')) }}
+      {{Form::label('title', 'Veids: ')}}
+      {{Form::select('title', array('Zvans' => 'Zvans', 'Vizīte' => 'Vizīte', 'Piedāvājums' => 'Piedāvājums'), null, array('class'=>'form-control')) }}
+      {{Form::label('due_date', 'Atgādinājums: ')}}
+      <div>
+        {{Form::text('due_date', $due_date, array('class'=>'form-control', 'id'=>'datetimepicker')) }}
+        {{Form::text('due_time', $due_time, array('class'=>'form-control', 'id'=>'datetimepicker1')) }}
+      </div>
       {{Form::label('content', 'Apraksts: ')}}
       {{Form::textarea('content', null, array('class'=>'form-control')) }}
-      {{Form::label('due_date', 'Atgādinājums: ')}}
-      {{Form::text('due_date', $due_date, array('class'=>'form-control', 'id'=>'datetimepicker')) }}
-      {{Form::text('due_time', $due_time, array('class'=>'form-control', 'id'=>'datetimepicker1')) }}
-      {{Form::submit('Izveidot', array('class' => 'btn btn-success'))}}
+      {{Form::submit('Labot', array('class' => 'btn btn-success'))}}
       {!! Html::linkRoute('actions.show', 'Atpakaļ', array($action->id), array('class'=>'btn btn-primary')) !!}
     </div>
   </div>
@@ -35,6 +40,7 @@ Labot darbību: {{$action->title}}
   <link rel="stylesheet" href="/css/clients.css">
   <link rel="stylesheet" href="/css/parsley.css">
   <link rel="stylesheet" href="/css/jquery.datetimepicker.min.css">
+  <link rel="stylesheet" href="/css/create.css">
 @endsection
 @section('scripts')
   <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.6.2/parsley.min.js" integrity="sha256-QKOftzbqahZaXS2amOh27JacZ6TbmT4TmGxNo4Jue4Y=" crossorigin="anonymous"></script>

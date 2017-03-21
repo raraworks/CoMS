@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
-  <div class="row dashRow">
-    <div class="col-md-6" id="todayTable">
+  <div class="row col-md-12 dashRow">
+    <div class="col-md-12" id="todayTable">
       <h1>Šodienas darbības</h1>
       <hr>
       <table class="table text-center">
@@ -10,15 +10,18 @@
             <th>Datums</th>
             <th>Laiks</th>
             <th>Klients</th>
-            <th>Darbība</th>
+            <th>Darbības veids</th>
             <th>Apraksts</th>
-            <th>Darbības</th>
+            <th colspan="2" class="text-left">Darbības</th>
           </tr>
         </thead>
         <tbody>
           @foreach($actions as $action)
-            {{-- @if (date('Y-m-d') == date('Y-m-d', strtotime($action->due_date))) --}}
-              <tr class="indextabula">
+              @if ($action->is_done)
+                <tr class="indextabula strikeTrough">
+                @else
+                <tr class="indextabula">
+              @endif
                 <td>{{ date('j.m.Y.', strtotime($action->due_date)) }}</td>
                 <td class="taim">{{ date('G:i', strtotime($action->due_time)) }}
                 </td>
@@ -26,13 +29,15 @@
                 <td>{{ $action->title }}</td>
                 <td>{{ Str::limit(strip_tags($action->content), 10, '...') }}</td>
                 <td><a class="btn btn-primary showButton" href="/actions/{{$action->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a></td>
+                <td class="isDoneButton">
+                  <a class="btn btn-primary checkButton" data-iden="{{$action->id}}" data-isdone=""><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" ></span> Atzīmēt kā pabeigtu</a>
+                </td>
               </tr>
-            {{-- @endif --}}
           @endforeach
         </tbody>
       </table>
     </div>
-    <div class="col-md-6" id="soonTable">
+    <div class="col-md-12" id="soonTable">
       <h1>Tuvākajā laikā</h1>
       <hr>
       <table class="table text-center">
@@ -41,7 +46,7 @@
             <th>Datums</th>
             <th>Laiks</th>
             <th>Klients</th>
-            <th>Darbība</th>
+            <th>Darbības veids</th>
             <th>Apraksts</th>
             <th>Darbības</th>
           </tr>
@@ -79,7 +84,7 @@
             <th>Datums</th>
             <th>Laiks</th>
             <th>Klients</th>
-            <th>Darbība</th>
+            <th>Darbības veids</th>
             <th>Apraksts</th>
             <th>Darbības</th>
           </tr>
@@ -109,5 +114,11 @@
       echo $subset;
     @endphp
   </script>
+  <script>
+    var token = '{{ Session::token() }}'
+  </script>
+@endsection
+@section('scripts')
+  <script src="/js/welcome.js"></script>
 @endsection
 @section('title', 'Dashboard')
