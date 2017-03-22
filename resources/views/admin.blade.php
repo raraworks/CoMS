@@ -2,15 +2,9 @@
 @section('content')
   <div class="row" id="topRow">
     <div class="col-sm-10 col-sm-offset-1" id="titleArea">
-      <div class="col-sm-10">
         <h1 class="display-1">
           Administratīvais panelis
         </h1>
-      </div>
-      <div class="col-sm-2 ash1">
-        <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#searchModal"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Meklēt</button>
-        {{-- <a href="{{ route('admin.search') }}" class="btn btn-success pull-right" id="addBox"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>   Pievienot</a> --}}
-      </div>
     </div>
   </div>
   <div class="row col-sm-10 col-sm-offset-1">

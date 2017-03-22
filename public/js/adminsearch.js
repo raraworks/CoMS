@@ -12,7 +12,7 @@ $(document).ready(function(){
         }
     }
     var formFields = "id=" + vars.id + "&"+$('#searchForm input').map(function () {
-        return $(this).val().trim() == "" ? null : this;
+        return $(this).val().trim() === "" ? null : this;
     }).serialize();
     console.log(formFields);
     $.ajax({
@@ -32,16 +32,13 @@ $(document).ready(function(){
         if (!$.isEmptyObject(data)) {
           console.log(data);
           $("#tabula").append(data);
+          $("#tabula").closest("table").show();
+          $("#contentRow").children("div.text-center").remove();
           toTable();
-
-          // $.each(data, function(index, value){
-          //
-          //   // console.log(value);
-          //   // rowAdd(value);
-          // });
         }
         else {
-            $("#tabula").append("<h1> Tādu kontaktu nav </h1>");
+            $("#tabula").closest("table").hide();
+            $("#contentRow").append("<div class=\"text-center\"><h2> Darbību nav </h2></div>  ");
             toTable();
         }
       }

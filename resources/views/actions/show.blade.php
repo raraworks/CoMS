@@ -26,16 +26,18 @@ Apskatīt darbību: {{$action->title}}
     </div>
   </div>
   </div>
-  <div class="row">
-    <div class="col-sm-10 col-sm-offset-1 well">
-      <h3 class="display-5">Pielikumi</h3>
-      <hr>
-      @foreach ($att as $oneatt)
-        <a href="{{ route('files.action', ['filename' => $oneatt->filename]) }}" target="_blank">{{$oneatt->filename}}</a>
-      @endforeach
+  @if (count($att)>0)
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1 well">
+        <h3 class="display-5">Pielikumi</h3>
+        <hr>
+        @foreach ($att as $oneatt)
+          <a href="{{ route('files.action', ['filename' => $oneatt->filename]) }}" target="_blank">{{$oneatt->filename}}</a>
+        @endforeach
 
-  </div>
-  </div>
+    </div>
+    </div>
+  @endif
 @endsection
 @section('stylesheets')
   <link rel="stylesheet" href="/css/clients.css">

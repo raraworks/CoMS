@@ -109,6 +109,10 @@ hr {
   margin-bottom: 0;
 }
 
+.dash {
+  table-layout: fixed;
+}
+
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: rgba(248, 255, 174, 0.5);
 }
@@ -147,10 +151,6 @@ th {
 
 .lessThanHour {
   background-color: #ff7f7f;
-}
-
-.dashRow {
-  border-bottom: 1px solid grey;
 }
 
 .well {
@@ -216,4 +216,12 @@ h3 {
 
 #todayTable, #soonTable, #pastTable {
   display: none;
+}
+
+.modal-content {
+  border-radius: 0;
+}
+
+.checkButton {
+  margin-left: 5px;
 }

@@ -1,10 +1,10 @@
 @extends('main')
 @section('content')
-  <div class="row col-md-12 dashRow">
+  <div class="row col-md-12">
     <div class="col-md-12" id="todayTable">
       <h1>Šodienas darbības</h1>
       <hr>
-      <table class="table text-center">
+      <table class="table text-center dash">
         <thead class="thead-inverse">
           <tr>
             <th>Datums</th>
@@ -12,10 +12,10 @@
             <th>Klients</th>
             <th>Darbības veids</th>
             <th>Apraksts</th>
-            <th colspan="2" class="text-left">Darbības</th>
+            <th>Darbības</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="todayTbody">
           @foreach($actions as $action)
               @if ($action->is_done)
                 <tr class="indextabula strikeTrough">
@@ -28,9 +28,9 @@
                 <td>{{ $action->client->title }}</td>
                 <td>{{ $action->title }}</td>
                 <td>{{ Str::limit(strip_tags($action->content), 10, '...') }}</td>
-                <td><a class="btn btn-primary showButton" href="/actions/{{$action->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a></td>
+                {{-- <td></td> --}}
                 <td class="isDoneButton">
-                  <a class="btn btn-primary checkButton" data-iden="{{$action->id}}" data-isdone=""><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" ></span> Atzīmēt kā pabeigtu</a>
+                  <a class="btn btn-primary showButton" href="/actions/{{$action->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a><a class="btn btn-primary checkButton" data-iden="{{$action->id}}" data-isdone=""><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" ></span> Pabeigts</a>
                 </td>
               </tr>
           @endforeach
@@ -74,8 +74,8 @@
     </div>
   </div>
     {{-- Aizgājušās darbības --}}
-    <div class="row">
-    <div class="col-md-6" id="pastTable">
+    <div class="row col-md-12">
+    <div class="col-md-12" id="pastTable">
       <h1>Nesenās darbības</h1>
       <hr>
       <table class="table text-center">
@@ -86,6 +86,7 @@
             <th>Klients</th>
             <th>Darbības veids</th>
             <th>Apraksts</th>
+            <th>Statuss</th>
             <th>Darbības</th>
           </tr>
         </thead>
@@ -98,6 +99,7 @@
                 <td>{{ $actionPast->client->title }}</td>
                 <td>{{ $actionPast->title }}</td>
                 <td>{{ Str::limit(strip_tags($actionPast->content), 10, '...') }}</td>
+                <td>{{ $action->is_done ? 'Pabeigts' : 'Nav pabeigts' }}</td>
                 <td><a class="btn btn-primary showButton" href="/actions/{{$actionPast->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a></td>
               </tr>
           @endforeach

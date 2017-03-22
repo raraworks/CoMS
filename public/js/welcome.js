@@ -81,16 +81,21 @@ $(document).ready(function(){
         }
       });
   });
-
+  $("tbody").each(function(){
+    if ($(this).children().length < 1){
+      var htmlString = "<div class=\"col-sm-12 text-center\"><h4>Darbību nav</h4></div>";
+      $(this).closest("table").html(htmlString);
+    }
+  });
 });
 
 $.fn.checkTaskStatus = function(){
   if (this.hasClass("strikeTrough")) {
-    this.children(".isDoneButton").children(".checkButton").attr("data-isdone", 1).removeClass("btn-primary").addClass("btn-warning").text("Atzīmēt kā nepabeigtu");
+    this.children(".isDoneButton").children(".checkButton").attr("data-isdone", 1).removeClass("btn-primary").addClass("btn-warning").text("Nepabeigts");
     return this;
   }
   else {
-    this.children(".isDoneButton").children(".checkButton").attr("data-isdone", 0).addClass("btn-primary").removeClass("btn-warning").text("Atzīmēt kā pabeigtu");
+    this.children(".isDoneButton").children(".checkButton").attr("data-isdone", 0).addClass("btn-primary").removeClass("btn-warning").text("Pabeigts");
     return this;
   }
 };

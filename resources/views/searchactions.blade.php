@@ -17,7 +17,6 @@ Skatīt lietotāja {{$user->name}} darbības
     </div>
     <div class="row" id="contentRow">
       <table class="table table-striped text-center">
-        <div class="col-sm-12">
           <thead class="thead">
             <tr>
               <th>Datums</th>
@@ -55,12 +54,7 @@ Skatīt lietotāja {{$user->name}} darbības
               </tr>
             @endforeach
           </tbody>
-        </div>
       </table>
-      {{-- pagination --}}
-      <div class="text-center">
-        {!! $userActions->appends(['id' => $user->id])->links() !!}
-      </div>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel">
@@ -68,19 +62,21 @@ Skatīt lietotāja {{$user->name}} darbības
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Darbību filtrs</h4>
+            <h3 class="modal-title" id="myModalLabel">Darbību filtrs</h3>
           </div>
           <div class="modal-body">
             <form id="searchForm" action="{{ route('admin.search') }}" method="get">
               <div class="form-group">
                 <h4>Darbības veids</h4>
-                <input type="checkbox" name="call" value="1" checked/><label for="call">Zvans</label>
-                <input type="checkbox" name="meeting" value="1" checked/><label for="meeting">Vizīte</label>
-                <input type="checkbox" name="offer" value="1" checked/><label for="offer">Piedāvājums</label>
+                <div>
+                  <label><input type="checkbox" name="call" value="1" checked/> Zvans</label>
+                  <label><input type="checkbox" name="meeting" value="1" checked/> Vizīte</label>
+                  <label><input type="checkbox" name="offer" value="1" checked/> Piedāvājums</label>
+                </div>
                 <hr>
                 <h4>Darbības statuss</h4>
-                <input type="radio" class="status" name="status" value="0" /><label for="action">Nav pabeigts</label>
-                <input type="radio" class="status" name="status" value="1" /><label for="client">Pabeigts</label>
+                <label><input type="radio" class="status" name="status" value="0" /> Nav pabeigts</label>
+                <label><input type="radio" class="status" name="status" value="1" /> Pabeigts</label>
                 <hr>
                 <h4>Klients</h4>
                 <input class="form-control" type="text" name="client_name" placeholder="Klienta nosaukums">
@@ -89,7 +85,7 @@ Skatīt lietotāja {{$user->name}} darbības
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Aizvērt</button>
-            <button id="searchButton" type="button" class="btn btn-primary">Meklēt</button>
+            <button id="searchButton" type="button" class="btn btn-primary" data-dismiss="modal">Filtrēt</button>
           </div>
         </div>
       </div>
