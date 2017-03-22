@@ -95,7 +95,7 @@ class ActionController extends Controller
       //ja atrod pieskir $client visu array (row) no DB
       $action = Action::find($id);
       if (!$action) {
-        return abort(404, 'Page not found');
+        return abort(404, 'Action not found');
       } else {
         $att = $action->attachments;
         //pass $client saturu no DB, uz skatu (izmanto with metodi)

@@ -11,6 +11,7 @@ use Auth;
 
 class CheckIfOwner
 {
+  //Check if current user logged in is the owner of requested resource.
     /**
      * Handle an incoming request.
      *
@@ -47,9 +48,3 @@ class CheckIfOwner
 
     }
 }
-
-// if ($request->user()->hasRole('admin')) {
-//   return $next($request);
-// }
-// else {
-// }

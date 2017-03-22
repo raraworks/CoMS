@@ -51,7 +51,7 @@ class ClientController extends Controller
         //validate from data ja buus errori tos ievietos $errors array, flash sessionā! un atgriezīsies pie create!
         $this->validate($request, array(
           //ja vairāki noteikumi izmanto |
-          "title"=>'required|max:255'
+          "title"=>'required|unique:clients|max:255'
         ));
         //store in database
           //create new model instance
@@ -85,6 +85,9 @@ class ClientController extends Controller
       //ja atrod pieskir $client visu array (row) no DB
 
       $client = Client::find($id);
+      if (!$client) {
+        return abort(404, 'Client not found');
+      } else {
       //find all related contacts
       $contacts = Client::find($id)->contacts;
       $sections = Client::find($id)->sections;
@@ -93,7 +96,7 @@ class ClientController extends Controller
       //with(nosaukums skatā, mainīgā nosaukums kurs satur info)
         return view('clients.show')->with('client', $client)->with('contacts', $contacts)->with('sections', $sections)->with('actions', $actions);
     }
-
+  }
     /**
      * Show the form for editing the specified resource.
      *

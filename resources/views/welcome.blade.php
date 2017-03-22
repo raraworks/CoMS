@@ -99,7 +99,7 @@
                 <td>{{ $actionPast->client->title }}</td>
                 <td>{{ $actionPast->title }}</td>
                 <td>{{ Str::limit(strip_tags($actionPast->content), 10, '...') }}</td>
-                <td>{{ $action->is_done ? 'Pabeigts' : 'Nav pabeigts' }}</td>
+                <td>{{ $actionPast->is_done ? 'Pabeigts' : 'Nav pabeigts' }}</td>
                 <td><a class="btn btn-primary showButton" href="/actions/{{$actionPast->id}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Skatīt</a></td>
               </tr>
           @endforeach
