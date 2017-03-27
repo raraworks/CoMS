@@ -82,7 +82,7 @@ class ContactController extends Controller
       //find id in database
       //ja atrod pieskir $client visu array (row) no DB
       $contact = Contact::find($id);
-      if (!$client) {
+      if (!$contact) {
         return abort(404, 'Contact not found');
       } else {
       //pass $client saturu no DB, uz skatu (izmanto with metodi)
