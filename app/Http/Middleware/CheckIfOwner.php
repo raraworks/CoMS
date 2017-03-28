@@ -7,6 +7,7 @@ use Session;
 use App\Action;
 use App\Client;
 use App\Contact;
+use App\Project;
 use Auth;
 
 class CheckIfOwner
@@ -34,6 +35,10 @@ class CheckIfOwner
         case 'contacts':
           $modelis = new Contact();
           $iden = "contact";
+          break;
+        case 'projects':
+          $modelis = new Project();
+          $iden = "project";
           break;
       }
 

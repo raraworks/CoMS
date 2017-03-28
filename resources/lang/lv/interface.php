@@ -4,6 +4,7 @@ return [
   'clients' => 'Klienti',
   'actions'=> 'Darbības',
   'contacts'=> 'Kontaktpersonas',
-  'adminPanel' => 'Admin' 
+  'adminPanel' => 'Admin',
+  'projects'=> 'Projekti'
 ];
 ?>

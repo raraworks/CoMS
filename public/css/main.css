@@ -12,6 +12,7 @@ body {
 
 .btn {
   border-radius: 0;
+  padding: 3px 5px;
 }
 
 .navbar {
@@ -119,6 +120,7 @@ hr {
 
 .table > tbody > tr > td {
   vertical-align: middle;
+  padding: 4px;
 }
 
 .deleteButton {
@@ -224,4 +226,16 @@ h3 {
 
 .checkButton {
   margin-left: 5px;
+}
+
+.passError {
+  visibility: hidden;
+}
+
+.passErrorspan {
+  color: red;
+}
+
+.showError {
+  visibility: visible;
 }

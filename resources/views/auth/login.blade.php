@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default" id="loginpanel">
-                <div class="panel-heading text-center"><img src="https://www.softaculous.com/website/images/customlogo.gif" alt="Industriālo Krāsu Apgāds" style="height: 100px"/></div>
+                <div class="panel-heading text-center"><img src="https://www.softaculous.com/website/images/customlogo.gif" alt="Your Logo" style="height: 100px"/></div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}

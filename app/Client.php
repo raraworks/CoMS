@@ -16,6 +16,9 @@ class Client extends Model
     public function sections(){
       return $this->hasMany('App\Section');
     }
+    public function projects(){
+      return $this->hasMany('App\Project');
+    }
     //paslēpjam šos laukus kad konvertējam no model uz json
     protected $hidden = ['id', 'user_id', "created_at", "updated_at"];
 }
