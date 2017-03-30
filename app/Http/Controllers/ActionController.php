@@ -12,15 +12,16 @@ use Session;
 
 class ActionController extends Controller
 {
+
+    //constructor, applies middleware
     public function __construct()
     {
       $this->middleware('auth');
       $this->middleware('owner', ['only' => ['edit', 'update', 'destroy']]);
     }
+
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -30,8 +31,6 @@ class ActionController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -41,30 +40,29 @@ class ActionController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-      //validate from data ja buus errori tos ievietos $errors array, flash sessionā! un atgriezīsies pie create!
+      //validate form data
+      //if validation fails errors will be stored in session, and returned back to prev location
       $this->validate($request, array(
-        //ja vairāki noteikumi izmanto |
         "client_id"=>'required',
         "title"=>'required|max:255'
       ));
-      //store in database
-        //create new model instance
+      //current authenticated user
       $user = Auth::id();
+      //instantiate a class
       $action = new Action;
-        //bind data
+      //bind form data to model
       $action->client_id = $request->client_id;
       $action->title = $request->title;
       $action->content = $request->content;
       $action->due_date = date('Y-m-d', strtotime($request->due_date));
       $action->due_time = date('H:i:s', strtotime($request->due_time));
       $action->user_id = $user;
+      //store in database
       $action->save();
+      //checking if form contained attachments, and store them in database as a reference to laravel storage
       if ($request->hasFile('attachments')) {
         $files = $request->file('attachments');
         foreach ($files as $file) {
@@ -76,40 +74,31 @@ class ActionController extends Controller
           $file->storeAs('actionAttach', $action->id."_".$filename);
         }
       }
-      //save to DB
       //flash message in session flash('key', 'value')
       Session::flash('success', 'Darbība veiksmīgi izveidota!');
-      //redirect to show
+      //redirect to newly created resource
       return redirect()->route('actions.show', $action->id);
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
       //find id in database
-      //ja atrod pieskir $client visu array (row) no DB
       $action = Action::find($id);
+      //if not found throw 404
       if (!$action) {
-        return abort(404, 'Action not found');
+        return abort(404, 'Darbība nav atrasta');
       } else {
         $att = $action->attachments;
         //pass $client saturu no DB, uz skatu (izmanto with metodi)
-        //with(nosaukums skatā, mainīgā nosaukums kurs satur info)
         return view('actions.show')->with('action', $action)->with('att', $att);
       }
-
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -122,17 +111,13 @@ class ActionController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
+      //case if request came from asynchronous environment
       if ($request->ajax()) {
         $action = Action::find($id);
         $numba = $request->input('done');
-        // TODO DIVKĀRŠĀ SALĪDZINĀŠANA!
         if ($numba == 0) {
           $action->is_done = true;
           $action->update();
@@ -144,22 +129,20 @@ class ActionController extends Controller
           return response()->json(["isDone" => 0]);
         }
       }
-      //validate from data ja buus errori tos ievietos $errors array, flash sessionā! un atgriezīsies pie create!
+      //validate from data
       $this->validate($request, array(
-        //ja vairāki noteikumi izmanto |
         "title"=>'required|max:255',
         "client_id"=>'required'
       ));
-      //store in database
-        //create new model instance
+      //find in database
       $action = Action::find($id);
-        //bind data
+      //bind data
       $action->client_id = $request->client_id;
       $action->title = $request->title;
       $action->content = $request->content;
       $action->due_date = date('Y-m-d', strtotime($request->due_date));
       $action->due_time = date('H:i:s', strtotime($request->due_time));
-        //save to DB
+      //update in DB
       $action->update();
       //flash message in session flash('key', 'value')
       Session::flash('success', 'Darbība veiksmīgi labota!');
@@ -169,17 +152,18 @@ class ActionController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+      //find in database
       $action = Action::find($id);
+      //find related records
       $attachments = $action->attachments;
+      //delete each file based on records
       foreach ($attachments as $attachment) {
         Storage::delete('/actionAttach/'.$attachment->filename);
       }
+      //remove resource (related resources will be removed (detailed event handling in Providers/AppServiceProvider.php))
       $action->delete();
       Session::flash('success', 'Darbība veiksmīgi izdzēsta!');
       return redirect()->route('actions.index');

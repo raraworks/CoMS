@@ -11,7 +11,7 @@ Apskatīt kontaktu: {{$contact->contact_name}}
         {!! Form::open(['route' => ['contacts.destroy', $contact->id], 'class'=>'ikonas', 'method'=>'DELETE'])!!}
         {{ Form::button('<span class="glyphicon glyphicon-remove ikonas" aria-hidden="true"></span>', ['class'=>'ikonas', 'role' => 'button', 'type' => 'submit'])}} {!!Form::close()!!}
       </h1>
-      <h4 class="text-muted"> {{$contact->client->title}} <div class="pull-right">
+      <h4 class="text-muted"> <a href="{{ route('clients.show', ['id' => $contact->client->id]) }}">{{$contact->client->title}}</a><div class="pull-right">
         <div class="phoneBox">
           <span class="glyphicon glyphicon-earphone"></span> {{$contact->phone}}
         </div> <a class="text-muted" href="mailto:{{$contact->email}}"> <span class="glyphicon glyphicon-envelope"></span> {{$contact->email}}</a>

@@ -30,13 +30,11 @@ $( document ).ready(function() {
   $(".deleteButton").on("click", function(){
     alert("Vai tiešām vēlaties izdzēst šo ierakstu?");
   });
-  var time = new Date();
-  var timeH = time.getHours();
-  var timeM = time.getMinutes();
-  $(".taim").each(function(){
-    var htmlTime = $(this).text();
-    if (htmlTime.substr(0,2) == timeH) {
-      $(this).closest("tr.indextabula").addClass("lessThanHour");
-    }
-  });
+  
+  //Remove alert after 2.5 seconds
+  setTimeout(function(){
+    $(".alert").fadeOut("slow", function(){
+      $(this).remove();
+    });
+  }, 2500);
 });

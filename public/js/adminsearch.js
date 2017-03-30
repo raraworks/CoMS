@@ -30,7 +30,6 @@ $(document).ready(function(){
       });
       function appendTable() {
         if (!$.isEmptyObject(data)) {
-          console.log(data);
           $("#tabula").append(data);
           $("#tabula").closest("table").show();
           $("#contentRow").children("div.text-center").remove();

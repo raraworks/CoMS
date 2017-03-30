@@ -24,11 +24,10 @@
               <th>Lietotājs</th>
               <th>Administrators</th>
               <th>
-                
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="userTable">
             @foreach($users as $user)
               <tr class="indextabula">
                 <td>

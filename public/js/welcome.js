@@ -1,4 +1,13 @@
 $(document).ready(function(){
+  var time = new Date();
+  var timeH = time.getHours();
+  var timeM = time.getMinutes();
+  $(".taim").each(function(){
+    var htmlTime = $(this).text();
+    if (htmlTime.substr(0,2) == timeH) {
+      $(this).closest("tr.indextabula").addClass("lessThanHour");
+    }
+  });
   $(".indextabula").each(function(){
     $(this).checkTaskStatus();
   });

@@ -1,6 +1,13 @@
 @if (Session::has('success'))
   <div class="alert alert-success" role="alert">
-    <strong>{{ Session::get('success') }}</strong>
+    <p>
+      <strong>{{ Session::get('success') }}</strong>
+    </p>
+    @if (Session::has('success2'))
+      <p>
+        <strong>{{ Session::get('success2') }}</strong>
+      </p>
+    @endif
   </div>
 @endif
 @if (count($errors) > 0)

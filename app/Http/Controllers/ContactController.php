@@ -10,15 +10,15 @@ use Session;
 
 class ContactController extends Controller
 {
+    //constructor, applies middleware
     public function __construct()
     {
       $this->middleware('auth');
       $this->middleware('owner', ['only' => ['edit', 'update', 'destroy']]);
     }
+
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -28,42 +28,34 @@ class ContactController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //to use data from another table, select all from that table using Model (add use for namespacing issues)
+        //retrieve info from another model to use in view
         $clients = Client::all();
         return view("contacts.create")->with('clients', $clients);
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-      //validate from data ja buus errori tos ievietos $errors array, flash sessionā! un atgriezīsies pie create!
+      //validate from data
       $this->validate($request, array(
-        //ja vairāki noteikumi izmanto |
         "contact_name"=>'required|max:255'
       ));
-      //store in database
-        //create new model instance
+      //instantiate class
       $contact = new Contact;
       $user = Auth::id();
-        //bind data
+      //bind data
       $contact->contact_name = $request->contact_name;
       $contact->phone = $request->phone;
       $contact->email = $request->email;
       $contact->position = $request->position;
-      // TODO: Jāpārveido form text laukā ievadītais nosaukums ar id un jāstoro ID
       $contact->client_id = $request->client_id;
       $contact->user_id = $user;
-        //save to DB
+      //save to DB
       $contact->save();
       //flash message in session flash('key', 'value')
       Session::flash('success', 'Kontakts veiksmīgi izveidots!');
@@ -73,28 +65,21 @@ class ContactController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
       //find id in database
-      //ja atrod pieskir $client visu array (row) no DB
       $contact = Contact::find($id);
+      //if not found
       if (!$contact) {
-        return abort(404, 'Contact not found');
+        return abort(404, 'Kontaktpersona nav atrasta');
       } else {
-      //pass $client saturu no DB, uz skatu (izmanto with metodi)
-      //with(nosaukums skatā, mainīgā nosaukums kurs satur info)
         return view('contacts.show')->with('contact', $contact);
       }
     }
+    
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -105,28 +90,23 @@ class ContactController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
       //validē formu
       $this->validate($request, array(
-        //ja vairāki noteikumi izmanto |
         "contact_name"=>'required|max:255'
       ));
-      //atrodi kontaktu DB
+      //find in DB
       $contact = Contact::find($id);
-      //updeito formu
+      //bind data
       $contact->contact_name = $request->contact_name;
       $contact->phone = $request->phone;
       $contact->email = $request->email;
       $contact->position = $request->position;
       $contact->client_id = $request->client_id;
-      //commit save to DB
-      $contact->save();
+      //update to DB
+      $contact->update();
       //flash message in session flash('key', 'value')
       Session::flash('success', 'Kontakts veiksmīgi labots!');
       //redirect to show
@@ -135,9 +115,6 @@ class ContactController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
@@ -147,11 +124,15 @@ class ContactController extends Controller
       return redirect()->route('contacts.index');
     }
 
+    /**
+     * Find resource in DB (ajax)
+     */
     public function search(Request $request)
     {
       if ($request->ajax()) {
-        //atrodam DB
+        //find in DB
         $contacts = Contact::where("contact_name", 'LIKE', '%'.$request->input('term').'%')->with('client')->get();
+        //return rendered partial view, to display
         $returnView = view('contacts.ajaxviews.search')->with('contacts', $contacts)->render();
         return response()->json($returnView);
       }

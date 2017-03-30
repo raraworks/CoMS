@@ -8,13 +8,16 @@ use App\Attachment;
 
 class FileController extends Controller
 {
+  //protect from outside access
   public function __construct()
   {
     $this->middleware('auth');
   }
   public function getActionFile($filename)
   {
+    //find in DB
     $fails = Attachment::where('filename', $filename)->where('related_type', 'App\Action')->first();
+    //return a file response, set headers from DB mime type field
     return response()->file(storage_path('app/actionAttach/'.$filename), array('content-type'=>$fails->mime));
   }
   public function getSectionFile($filename)

@@ -69,3 +69,11 @@ tr .indextabula {
 .darbibas {
   display: none;
 }
+
+.addContact {
+  display: none;
+}
+
+.show {
+  margin-bottom: 20px;
+}

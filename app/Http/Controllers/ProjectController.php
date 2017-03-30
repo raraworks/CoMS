@@ -91,9 +91,10 @@ class ProjectController extends Controller
         return abort(404, 'Project not found');
       } else {
         $att = $project->attachments;
+        $tasks = $project->project_task->sortByDesc('due_date');
         //pass $client saturu no DB, uz skatu (izmanto with metodi)
         //with(nosaukums skatā, mainīgā nosaukums kurs satur info)
-        return view('projects.show')->with('project', $project)->with('att', $att);
+        return view('projects.show')->with('project', $project)->with('att', $att)->with('tasks', $tasks);
       }
     }
 

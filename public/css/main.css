@@ -12,7 +12,6 @@ body {
 
 .btn {
   border-radius: 0;
-  padding: 3px 5px;
 }
 
 .navbar {
@@ -238,4 +237,10 @@ h3 {
 
 .showError {
   visibility: visible;
+}
+
+.alert {
+  width: 100%;
+  position: fixed;
+  z-index: 1;
 }

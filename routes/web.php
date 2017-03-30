@@ -10,9 +10,20 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/projects/{project}', [
+  'uses' => 'Project_taskController@store',
+  'as' => 'task.store',
+  'middleware' => 'auth'
+]);
+
 Route::post('/admin/users', [
     'uses' => 'UserController@store',
     'as' => 'user.store',
+    'middleware' => 'admin'
+]);
+Route::put('/admin/users', [
+    'uses' => 'UserController@update',
+    'as' => 'user.update',
     'middleware' => 'admin'
 ]);
 Route::get('/contacts/search', [

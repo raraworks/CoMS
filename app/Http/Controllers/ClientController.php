@@ -14,15 +14,15 @@ use Session;
 
 class ClientController extends Controller
 {
+    //constructor, applies middleware
     public function __construct()
     {
       $this->middleware('auth');
       $this->middleware('owner', ['only' => ['edit', 'update', 'destroy']]);
     }
+
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -32,8 +32,6 @@ class ClientController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -42,30 +40,35 @@ class ClientController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //validate from data ja buus errori tos ievietos $errors array, flash sessionā! un atgriezīsies pie create!
+        //validate from data
         $this->validate($request, array(
-          //ja vairāki noteikumi izmanto |
           "title"=>'required|unique:clients|max:255'
         ));
-        //store in database
-          //create new model instance
+        //instantiate class
         $client = new Client;
         $user = Auth::id();
-          //bind data
+        //bind data
         $client->title = $request->title;
         $client->address = $request->address;
         $client->user_id = $user;
-        // $client->contact_name = $request->contact_name;
-        // $client->phone = $request->phone;
-        // $client->email = $request->email;
-          //save to DB
+        //save to DB
         $client->save();
+
+        if ($request->contact_name) {
+          $contact = new Contact;
+          $contact->contact_name = $request->contact_name;
+          $contact->phone = $request->phone;
+          $contact->email = $request->email;
+          $contact->position = $request->position;
+          $contact->client_id = $client->id;
+          $contact->user_id = $user;
+          //save to DB
+          $contact->save();
+          Session::flash('success2', 'Klientam pievienots kontakts!');
+        }
         //flash message in session flash('key', 'value')
         Session::flash('success', 'Klients veiksmīgi izveidots!');
         //redirect to show
@@ -74,34 +77,24 @@ class ClientController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-     //sajaa gadiijumaa show(parametrs) - parametrs ir jebkas kas atrodas aiz /clients/...., tas tiek padots ieks funkcijas
     public function show($id)
     {
       //find id in database
-      //ja atrod pieskir $client visu array (row) no DB
-
       $client = Client::find($id);
       if (!$client) {
-        return abort(404, 'Client not found');
+        return abort(404, 'Klients nav atrasts!');
       } else {
-      //find all related contacts
+      //find all related contacts, sections and pass them to view
       $contacts = Client::find($id)->contacts;
       $sections = Client::find($id)->sections;
       $actions = Action::where('client_id', '=', $id)->orderBy('due_date', 'desc')->paginate(10, ['*']);
-      //pass $client saturu no DB, uz skatu (izmanto with metodi)
-      //with(nosaukums skatā, mainīgā nosaukums kurs satur info)
-        return view('clients.show')->with('client', $client)->with('contacts', $contacts)->with('sections', $sections)->with('actions', $actions);
+      return view('clients.show')->with('client', $client)->with('contacts', $contacts)->with('sections', $sections)->with('actions', $actions);
     }
   }
+
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -111,28 +104,20 @@ class ClientController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-      //validē formu
+      //form validation
       $this->validate($request, array(
-        //ja vairāki noteikumi izmanto |
         "title"=>'required|max:255'
       ));
-      //atrodi klientu DB
+      //find in DB
       $client = Client::find($id);
-      //updeito formu
+      //bind data
       $client->title = $request->title;
       $client->address = $request->address;
-      // $client->contact_name = $request->contact_name;
-      // $client->phone = $request->phone;
-      // $client->email = $request->email;
-      //commit save to DB
-      $client->save();
+      //update to DB
+      $client->update();
       //flash message in session flash('key', 'value')
       Session::flash('success', 'Klients veiksmīgi labots!');
       //redirect to show
@@ -141,15 +126,14 @@ class ClientController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+      //find in DB and find related records based on model relations
         $client = Client::find($id);
         $actions = Client::find($id)->actions;
         $sections = Client::find($id)->sections;
+      //file deletion in storage (db records are deleted automatically, (AppServiceProvider.php))
         foreach ($actions as $aaa) {
           $ids = $aaa->id;
           $attachments = Attachment::where('related_id', '=', $ids)->where('related_type', 'App\Action')->get();
@@ -165,12 +149,18 @@ class ClientController extends Controller
             Storage::delete('/sectionAttach/'.$attachment->filename);
           }
         }
+        //delete resource and redirect with message
         $client->delete();
         Session::flash('success', 'Klients veiksmīgi izdzēsts!');
         return redirect()->route('clients.index');
     }
+
+    /**
+     * Search resource by title
+     */
     public function search(Request $request)
     {
+      //retrieve params from request
       $keyword = $request->input('term');
       $results = Client::where('title', 'LIKE', '%'.$keyword.'%')->get();
       return view('clients.search')->with('results', $results)->with('keyword', $keyword);

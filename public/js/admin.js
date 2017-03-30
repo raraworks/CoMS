@@ -1,5 +1,6 @@
 $(document).ready(function(){
-  $(".deleteLink").on("click", function(e){
+  //ajax calls for deleting user, DELEGATED events
+  $("#userTable").on("click", ".deleteLink", function(e){
     e.preventDefault();
     var $this = $(this);
     $.ajaxSetup({
@@ -18,8 +19,29 @@ $(document).ready(function(){
       });
     });
   });
+  //ajax calls for changing user roles, DELEGATED events
+  $("#userTable").on("click", "input[type=checkbox]", function(){
+    var checkStatus = $(this).is(":checked");
+    var role = $(this).attr("name");
+    var userEmail = $(this).closest("tr").children(':nth-child(3)').html();
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+    $.ajax({
+      type: "PUT",
+      url: "/admin/users",
+      data: {
+        role: role,
+        status: checkStatus,
+        email: userEmail
+      },
+    });
+  });
+  //ajax call for showing modal form to add a user to system
   $("#addButton").on("click", function(e){
-    $("#addUserForm").children(".form-group").children("div").html("");
+    $("#addUserForm").children(".form-group").children("div").not(".passError").html("");
     e.preventDefault();
     $(".passError").removeClass("showError");
     if ($("input[name='password']").val() !== $("input[name='password2']").val()){
@@ -48,7 +70,10 @@ $(document).ready(function(){
         }
       })
       .done(function(data){
-        console.log(data);
+        $("#userTable").fadeOut("slow", function(){
+          $(".indextabula").remove();
+          $("#userTable").append(data, $("#userTable").fadeIn("slow"));
+        });
       });
     }
   });

@@ -1,5 +1,5 @@
 @extends('main')
-@section('title', '| Darbības ')
+@section('title', '| Projekti ')
 @section('content')
     <div class="row" id="topRow">
       <div class="col-sm-10 col-sm-offset-1" id="titleArea">

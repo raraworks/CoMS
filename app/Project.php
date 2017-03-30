@@ -12,4 +12,8 @@ class Project extends Model
   public function attachments(){
     return $this->morphMany('App\Attachment', 'related');
   }
+  public function project_task()
+  {
+    return $this->hasMany('App\Project_task');
+  }
 }
