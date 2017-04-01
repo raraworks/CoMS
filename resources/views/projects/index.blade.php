@@ -18,17 +18,14 @@
         <div class="col-sm-12">
           <thead class="thead">
             <tr>
-              <th>Datums</th>
               <th>Klients</th>
               <th>Projekta nosaukums</th>
-              <th>Apraksts</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             @foreach($projects as $project)
               <tr class="indextabula">
-                <td>{{date('j.m.Y.', strtotime($project->due_date))}}</td>
                 <td>{{ $project->client->title }}</td>
                 <td>{{ $project->project_name }}</td>
                 <td>{{ Str::limit(strip_tags($project->content), 10, '...') }}</td>

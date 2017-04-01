@@ -40,7 +40,16 @@ Route::delete('/admin/users/{id}', [
     'as' => 'user.destroy',
     'middleware' => 'admin'
 ]);
-
+Route::delete('/projects/{project}/task/{task_id}', [
+    'uses' => 'Project_taskController@destroy',
+    'as' => 'task.destroy'
+]);
+Route::post('/projects/{project}/addAttach', 'ProjectController@attachmentAdd')->name('projects.attach');
+Route::get('/actionAttach/{filename}', 'FileController@getActionFile')->name('files.action');
+Route::get('/sectionAttach/{filename}', 'FileController@getSectionFile')->name('files.section');
+Route::delete('/sectionAttach/{filename}/delete', 'FileController@destroySectionFile')->name('files.section.destroy');
+Route::get('/projectAttach/{filename}', 'FileController@getProjectFile')->name('files.project');
+Route::delete('/projectAttach/{filename}/delete', 'FileController@destroyProjectFile')->name('files.project.destroy');
 Route::get('/', 'PagesController@getIndex');
 Route::resource('clients', 'ClientController');
 Route::resource('actions', "ActionController");
@@ -53,11 +62,7 @@ Route::put('clients/{client}/section', 'SectionController@update')->name('sectio
 Route::delete('clients/{client}/section/{id}', 'SectionController@destroy')->name('sections.destroy');
 // Route::get('/login', ['uses' => 'Auth/LoginController'])->middleware->('web')
 Route::get('/search', 'ClientController@search')->name('clients.search');
-Route::get('/actionAttach/{filename}', 'FileController@getActionFile')->name('files.action');
-Route::get('/sectionAttach/{filename}', 'FileController@getSectionFile')->name('files.section');
-Route::delete('/sectionAttach/{filename}/delete', 'FileController@destroySectionFile')->name('files.section.destroy');
-Route::get('/projectAttach/{filename}', 'FileController@getProjectFile')->name('files.project');
-Route::delete('/projectAttach/{filename}/delete', 'FileController@destroyProjectFile')->name('files.project.destroy');
+
 Route::get('/home', 'HomeController@index');
 Route::get('/admin', [
   'uses' => 'PagesController@adminPanel',

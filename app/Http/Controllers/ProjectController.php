@@ -90,7 +90,7 @@ class ProjectController extends Controller
       if (!$project) {
         return abort(404, 'Project not found');
       } else {
-        $att = $project->attachments;
+        $att = $project->attachments->sortByDesc('created_at');
         $tasks = $project->project_task->sortByDesc('due_date');
         //pass $client saturu no DB, uz skatu (izmanto with metodi)
         //with(nosaukums skatā, mainīgā nosaukums kurs satur info)
@@ -123,6 +123,22 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
       $project = Project::find($id);
+      if ($request->ajax()) {
+        if ($request->hasFile('attachments')) {
+          $files = $request->file('attachments');
+          foreach ($files as $file) {
+            $attachment = new Attachment();
+            $filename = $file->getClientOriginalName();
+            $attachment->mime = $file->getClientMimeType();
+            $attachment->filename = $project->id."_".$filename;
+            $project->attachments()->save($attachment);
+            $file->storeAs('projectAttach', $project->id."_".$filename);
+            return response()->json("ALLOK");
+          }
+        }
+        return response()->json($request->input());
+      }
+
         //bind data
       $project->client_id = $request->client_id;
       $project->project_name = $request->project_name;
@@ -153,5 +169,29 @@ class ProjectController extends Controller
       $project->delete();
       Session::flash('success', 'Projekts veiksmīgi izdzēsts!');
       return redirect()->route('projects.index');
+    }
+    //adding attachments to projects via AJAX
+    public function attachmentAdd(Request $request, $id)
+    {
+      if ($request->ajax()) {
+        $project = Project::find($id);
+        if ($request->hasFile('attachments')) {
+          $files = $request->file('attachments');
+          $wholeView = "";
+          foreach ($files as $file) {
+            $attachment = new Attachment();
+            $filename = $file->getClientOriginalName();
+            $attachment->mime = $file->getClientMimeType();
+            $attachment->filename = $project->id."_".$filename;
+            $project->attachments()->save($attachment);
+            $file->storeAs('projectAttach', $project->id."_".$filename);
+            $partialView = view('projects.ajaxviews.addattach')->with('oneatt', $attachment)->render();
+            $wholeView .= $partialView;
+          }
+          $partialView = view('projects.ajaxviews.addattach')->with('oneatt', $attachment)->render();
+          return response()->json($wholeView);
+        }
+        return response()->json();
+      }
     }
 }

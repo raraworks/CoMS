@@ -18,13 +18,6 @@ Labot projektu: {{$project->project_name}}
       </select>
       {{Form::label('project_name', 'Projekta nosaukums: ')}}
       {{Form::text('project_name', $project->project_name, array('class'=>'form-control')) }}
-      {{Form::label('due_date', 'Projekta termiņš: ')}}
-      <div>
-        {{Form::text('due_date', $due_date, array('class'=>'form-control', 'id'=>'datetimepicker')) }}
-        {{Form::text('due_time', $due_time, array('class'=>'form-control', 'id'=>'datetimepicker1')) }}
-      </div>
-      {{Form::label('content', 'Apraksts: ')}}
-      {{Form::textarea('content', null, array('class'=>'form-control')) }}
       {{Form::submit('Labot', array('class' => 'btn btn-success'))}}
       {!! Html::linkRoute('projects.show', 'Atpakaļ', array($project->id), array('class'=>'btn btn-primary')) !!}
     </div>

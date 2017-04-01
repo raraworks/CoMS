@@ -13,13 +13,6 @@
         </select>
         {{Form::label('project_name', 'Projekta nosaukums: ')}}
         {{Form::text('project_name', null, array('class'=>'form-control')) }}
-        {{Form::label('due_date', 'Atgādinājums: ')}}
-        <div>
-          {{Form::text('due_date', 'DD.MM.GGGG', array('class'=>'form-control form-inline', 'id'=>'datetimepicker')) }}
-          {{Form::text('due_time', 'SS:MM', array('class'=>'form-control', 'id'=>'datetimepicker1')) }}
-        </div>
-        {{Form::label('content', 'Apraksts: ')}}
-        {{Form::textarea('content', null, array('class'=>'form-control')) }}
         {{Form::label('attachments', 'Saistītie faili: ')}}
         {{Form::file('attachments[]', array('multiple'=>true))}}
         {{Form::submit('Izveidot', array('class' => 'btn btn-success'))}}

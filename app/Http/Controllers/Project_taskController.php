@@ -25,7 +25,13 @@ class Project_taskController extends Controller
       $partialView = view('projects.ajaxviews.addtask')->with('task', $task)->render();
       return response()->json($partialView);
     }
-
-
+  }
+  public function destroy(Request $request)
+  {
+    if ($request->ajax()) {
+      $taskToDelete = Project_task::findOrFail($request->task_id);
+      $taskToDelete->delete();
+      return;
+    }
   }
 }

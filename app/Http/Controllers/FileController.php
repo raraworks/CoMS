@@ -37,11 +37,11 @@ class FileController extends Controller
     $fails = Attachment::where('filename', $filename)->where('related_type', 'App\Project')->first();
     return response()->file(storage_path('app/projectAttach/'.$filename), array('content-type'=>$fails->mime));
   }
-  public function destroyProjectFile($filename)
+  public function destroyProjectFile(Request $request)
   {
-    $failsDB = Attachment::where('filename', $filename)->where('related_type', 'App\Project')->first();
-    $fails = Storage::delete('/projectAttach/'.$filename);
+    $failsDB = Attachment::where('filename', $request->filename)->where('related_type', 'App\Project')->first();
+    $fails = Storage::delete('/projectAttach/'.$request->filename);
     $failsDB->delete();
-    return redirect()->back();
+    return;
   }
 }

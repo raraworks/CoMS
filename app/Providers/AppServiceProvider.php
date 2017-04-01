@@ -43,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
       });
       Project::deleting(function($project){
         $project->attachments()->delete();
+        $project->project_task()->delete();
       });
     }
 
