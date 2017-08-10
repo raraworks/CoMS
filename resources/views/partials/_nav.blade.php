@@ -19,6 +19,7 @@
       <li class="{{Request::is('actions*') ? "active" : ""}}"><a href="/actions">{{trans('interface.actions')}}</a></li>
       <li class="{{Request::is('contacts*') ? "active" : ""}}"><a href="/contacts">{{trans('interface.contacts')}}</a></li>
       <li class="{{Request::is('projects*') ? "active" : ""}}"><a href="/projects">{{trans('interface.projects')}}</a></li>
+      <li class="{{Request::is('map*') ? "active" : ""}}"><a href="/map">Karte</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       @if (Auth::user())

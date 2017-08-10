@@ -62,7 +62,7 @@ Route::put('clients/{client}/section', 'SectionController@update')->name('sectio
 Route::delete('clients/{client}/section/{id}', 'SectionController@destroy')->name('sections.destroy');
 // Route::get('/login', ['uses' => 'Auth/LoginController'])->middleware->('web')
 Route::get('/search', 'ClientController@search')->name('clients.search');
-
+Route::get('/map', 'PagesController@getMap');
 Route::get('/home', 'HomeController@index');
 Route::get('/admin', [
   'uses' => 'PagesController@adminPanel',

@@ -91,6 +91,9 @@ class PagesController extends Controller
     ->orderBy('due_time', 'desc')->paginate(8, ['*'], 'useractionlist');
     return view('searchactions')->with('userActions', $userActions)->with('user', $user);
   }
+  public function getMap(Request $request){
+      return view('map');
+  }
 }
 
 
