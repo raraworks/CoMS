@@ -162,7 +162,7 @@ class ClientController extends Controller
     {
       //retrieve params from request
       $keyword = $request->input('term');
-      $results = Client::where('title', 'LIKE', '%'.$keyword.'%')->get();
+      $results = Client::where('title', 'LIKE', '%'.$keyword.'%')->orWhere('address', 'LIKE', '%'.$keyword.'%')->get();
       return view('clients.search')->with('results', $results)->with('keyword', $keyword);
     }
 }
