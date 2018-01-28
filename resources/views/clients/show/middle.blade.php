@@ -8,7 +8,10 @@
 
       {{-- Kontaktpersonu attēlošanas rāmis --}}
       <div class="kontakti" id="kontaktu-ramis">
-        <div class="well nopadding">
+        <div class="col-sm-3 pull-right">
+          {!! Html::linkRoute('contacts.create', 'Pievienot kontaktpersonu', array('client' => $client->id), array('class'=>'btn btn-default')) !!}
+        </div>
+        <div class="col-sm-12 well nopadding">
           <table class="table table-striped text-center">
             <div class="col-sm-12">
               <thead class="thead">
@@ -48,7 +51,10 @@
 
       {{-- Darbību attēlošanas rāmis --}}
       <div class="darbibas" id="darbibu-ramis">
-        <div class="well nopadding">
+          <div class="col-sm-3 pull-right">
+          {!! Html::linkRoute('actions.create', 'Pievienot darbību', array('client' => $client->id), array('class'=>'btn btn-default')) !!}
+        </div>
+        <div class="col-sm-12 well nopadding">
           <table class="table table-striped text-center">
             <div class="col-sm-12">
               <thead class="thead">

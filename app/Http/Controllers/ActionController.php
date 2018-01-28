@@ -77,6 +77,9 @@ class ActionController extends Controller
       //flash message in session flash('key', 'value')
       Session::flash('success', 'Darbība veiksmīgi izveidota!');
       //redirect to newly created resource
+      if (!empty($request->client)) {
+          return redirect()->route('clients.show', $request->client);
+      }
       return redirect()->route('actions.show', $action->id);
     }
 

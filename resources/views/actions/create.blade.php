@@ -8,7 +8,7 @@
         {{Form::label('client_id', 'Klients: ')}}
         <select class="form-control" name="client_id">
           @foreach ($clients as $client)
-            <option value="{{$client->id}}">{{$client->title}}</option>
+          <option value="{{$client->id}}" {{ app('request')->input('client') == $client->id ? "selected" : "" }}>{{$client->title}}</option>
           @endforeach
         </select>
         {{Form::label('title', 'Veids: ')}}
@@ -22,6 +22,7 @@
         {{Form::textarea('content', null, array('class'=>'form-control')) }}
         {{Form::label('attachments', 'Saistītie faili: ')}}
         {{Form::file('attachments[]', array('multiple'=>true))}}
+        {{Form::hidden('client', app('request')->query('client')) }}
         {{Form::submit('Izveidot', array('class' => 'btn btn-success'))}}
       {!! Form::close() !!}
     </div>

@@ -60,6 +60,9 @@ class ContactController extends Controller
       //flash message in session flash('key', 'value')
       Session::flash('success', 'Kontakts veiksmīgi izveidots!');
       //redirect to show
+      if (!empty($request->client)) {
+          return redirect()->route('clients.show', $request->client);
+      }
       return redirect()->route('contacts.show', $contact->id);
     }
 
@@ -121,7 +124,7 @@ class ContactController extends Controller
       $contact = Contact::find($id);
       $contact->delete();
       Session::flash('success', 'Kontaktpersona veiksmīgi izdzēsta!');
-      return redirect()->route('contacts.index');
+      return back();
     }
 
     /**

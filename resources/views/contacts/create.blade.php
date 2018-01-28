@@ -8,7 +8,7 @@
         {{Form::label('client_id', 'Klients: ')}}
         <select class="form-control" name="client_id">
           @foreach ($clients as $client)
-            <option value="{{$client->id}}">{{$client->title}}</option>
+          <option value="{{$client->id}}" {{ app('request')->input('client') == $client->id ? "selected" : "" }}>{{$client->title}}</option>
           @endforeach
         </select>
         {{Form::label('contact_name', 'Vārds un uzvārds: ')}}
@@ -20,6 +20,7 @@
         {{Form::label('position', 'Amats/atbildīgs par:')}}
         {{Form::text('position', null, array('class'=>'form-control')) }}
         {{-- {{Form::text('client_name', null, array('class'=>'form-control')) }} --}}
+        {{Form::hidden('client', app('request')->query('client')) }}
         {{Form::submit('Izveidot', array('class' => 'btn btn-success'))}}
       {!! Form::close() !!}
     </div>
