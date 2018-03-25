@@ -18,7 +18,7 @@ class ClientController extends Controller
     public function __construct()
     {
       $this->middleware('auth');
-      $this->middleware('owner', ['only' => ['edit', 'update', 'destroy']]);
+      $this->middleware('owner', ['only' => ['destroy']]);
     }
 
     /**

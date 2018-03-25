@@ -55,6 +55,10 @@ Skatīt lietotāja {{$user->name}} darbības
             @endforeach
           </tbody>
       </table>
+      {{-- pagination --}}
+      <div class="text-center">
+        {!! $userActions->appends(request()->query())->links() !!}
+      </div>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel">
