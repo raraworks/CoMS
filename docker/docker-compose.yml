@@ -1,0 +1,39 @@
+version: '3.5'
+services:
+  coms_prod_db:
+    container_name: coms_prod_db
+    image: mysql:5
+    environment:
+      MYSQL_DATABASE: coms
+      MYSQL_ROOT_PASSWORD: toor
+    volumes:
+      - coms_prod_volume:/var/lib/mysql
+    ports:
+      - "127.0.0.1:3306:3306"
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      coms_prod_network:
+  coms_prod_webserver:
+    container_name: coms_prod_webserver
+    build: .
+    image: coms_prod_webserver
+    volumes:
+      - ../../src:/var/www/html
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ./sqlbackups:/backups/data
+      - ./letsencrypt:/etc/letsencrypt
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - coms_prod_db
+    restart: always
+    networks:
+      coms_prod_network:
+volumes:
+  coms_prod_volume:
+    name: coms_prod_volume
+networks:
+  coms_prod_network:
+    name: coms_prod_network
