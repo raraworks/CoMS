@@ -1,0 +1,39 @@
+version: '3.5'
+services:
+  coms_dev_db:
+    container_name: coms_dev_db
+    image: mysql:5
+    environment:
+      MYSQL_DATABASE: coms
+      MYSQL_ROOT_PASSWORD: toor
+    volumes:
+      - coms_dev_volume:/var/lib/mysql
+    ports:
+      - 3306:3306
+    restart: always
+    networks:
+      coms_dev_network:
+  coms_dev_webserver:
+    container_name: coms_dev_webserver
+    build: .
+    image: coms_dev_webserver_image
+    volumes:
+      - ../../:/var/www/html
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ./php.ini:/etc/php/7.4/fpm/php.ini
+    ports:
+      - 80:80
+    depends_on:
+      - coms_dev_db
+    restart: always
+    networks:
+      coms_dev_network:
+#    Uncomment two following lines on linux and append with your host main IP to enable Xdebug
+    extra_hosts:
+      - "host.docker.internal:192.168.88.33"
+volumes:
+  coms_dev_volume:
+    name: coms_dev_volume
+networks:
+  coms_dev_network:
+    name: coms_dev_network

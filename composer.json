@@ -9,7 +9,7 @@
         "barryvdh/laravel-debugbar": "^2.4",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "5.4.x-dev"
+        "laravelcollective/html": "5.4.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -48,11 +48,5 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/maddhatter/html.git"
-        }
-    ]
+    }
 }
