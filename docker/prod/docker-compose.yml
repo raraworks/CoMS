@@ -2,7 +2,7 @@ version: '3.5'
 services:
   coms_prod_db:
     container_name: coms_prod_db
-    image: mysql:5
+    image: mysql:8
     environment:
       MYSQL_DATABASE: coms
       MYSQL_ROOT_PASSWORD: toor
