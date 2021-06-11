@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use Illuminate\Support\Facades\Auth;
+
 Route::post('/projects/{project}', [
   'uses' => 'Project_taskController@store',
   'as' => 'task.store',
@@ -71,4 +74,16 @@ Route::get('/admin', [
   ]);
 
 
-Auth::routes();
+// Authentication Routes...
+Route::get('login', [
+    'as' => 'login',
+    'uses' => 'Auth\LoginController@showLoginForm'
+]);
+Route::post('login', [
+    'as' => '',
+    'uses' => 'Auth\LoginController@login'
+]);
+Route::post('logout', [
+    'as' => 'logout',
+    'uses' => 'Auth\LoginController@logout'
+]);
