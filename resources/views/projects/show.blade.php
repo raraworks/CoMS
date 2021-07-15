@@ -10,7 +10,7 @@ Apskatīt projektu: {{$project->project_name}}
         {!! Form::open(['route' => ['projects.destroy', $project->id], 'class'=>'ikonas', 'method'=>'DELETE'])!!}
         {{ Form::button('<span class="glyphicon glyphicon-remove ikonas" aria-hidden="true"></span>', ['class'=>'ikonas', 'role' => 'button', 'type' => 'submit'])}} {!!Form::close()!!}
       </h1>
-      <h4 class="text-muted"><a href="{{ route('clients.show', ['id' => $project->client->id]) }}">{{$project->client->title}}</a></h4>
+      <h4 class="text-muted"><a href="{{ route('clients.show', ['client' => $project->client->id]) }}">{{$project->client->title}}</a></h4>
     </div>
   </div>
     <div class="col-sm-offset-1 col-sm-offset-right-1">

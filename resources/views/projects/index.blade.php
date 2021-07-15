@@ -34,7 +34,7 @@
 
                   <a class="btn btn-warning editButton" href="/projects/{{$project->id}}/edit"><span class="glyphicon glyphicon-pencil ikonas" aria-hidden="true"></span> Labot</a>
 
-                  <form class="deleteButton" action="{{ route('projects.destroy', ['action' => $project->id]) }}" method="POST">
+                  <form class="deleteButton" action="{{ route('projects.destroy', ['project' => $project->id]) }}" method="POST">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="_method"  value="DELETE">
                     {{-- <input type="submit" name="name" value="Dzēst" class="ikonas"> --}}

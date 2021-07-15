@@ -10,7 +10,7 @@ Apskatīt darbību: {{$action->title}}
         {!! Form::open(['route' => ['actions.destroy', $action->id], 'class'=>'ikonas', 'method'=>'DELETE'])!!}
         {{ Form::button('<span class="glyphicon glyphicon-remove ikonas" aria-hidden="true"></span>', ['class'=>'ikonas', 'role' => 'button', 'type' => 'submit'])}} {!!Form::close()!!}
       </h1>
-      <h4 class="text-muted"><a href="{{ route('clients.show', ['id' => $action->client->id]) }}">{{$action->client->title}}</a> <div class="pull-right">
+      <h4 class="text-muted"><a href="{{ route('clients.show', ['client' => $action->client->id]) }}">{{$action->client->title}}</a> <div class="pull-right">
         Termiņš: {{date('j.n.Y.', strtotime($action->due_date))}} plkst. {{date('G:i', strtotime($action->due_time))}}
       </div></h4>
     </div>
